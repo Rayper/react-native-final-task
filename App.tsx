@@ -14,7 +14,9 @@ const fonts = {
 
 const AuthenticationNavigator = () => {
   return (
-      <AuthenticationStack.Navigator>
+      <AuthenticationStack.Navigator screenOptions={{ 
+        headerShown: false
+      }}>
       <AuthenticationStack.Screen name='OnBoarding' component={OnBoarding}/>
       </AuthenticationStack.Navigator>
   );
