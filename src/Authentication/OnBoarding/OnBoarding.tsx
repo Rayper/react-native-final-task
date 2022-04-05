@@ -1,10 +1,14 @@
 import React, { useRef } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
-import Slide, { SLIDE_HEIGHT, BORDER_RADIUS } from './Slide';
-import Animated, { divide, multiply } from 'react-native-reanimated';
+import { Dimensions, StyleSheet, View, Image} from 'react-native';
+import Animated, { divide, Extrapolate, interpolate, multiply } from 'react-native-reanimated';
 import { interpolateColor, onScrollEvent, useValue} from 'react-native-redash';
+
+import Slide, { SLIDE_HEIGHT } from './Slide';
 import Subslide from './Subslide';
 import Dot from './Dot';
+
+import { theme } from '../../components';
+import { Routes, StackNavigationProps } from '../../components/Navigation';
 
 const { width, height } = Dimensions.get("window");
 
@@ -14,32 +18,52 @@ const slides = [
         subtitle: "Find Your Outfits",
         description: "Confused about your outfits? Don't worry! Find the best outfit here",
         color: "#BFEAF5",
-        picture: require("../../../assets/images/1.png")
+        picture: {
+        src: require("../../../assets/images/1.png"),
+        width: 2513,
+        height: 3583,
+    },
     },
     { 
         title: "Playful",
         subtitle: "Hear it First, Wear it First",
         description: "Hating the clothes in your wardrobe? Explore hundreds of outif ideas",
         color: "#BEECC4",
-        picture: require("../../../assets/images/2.png")
+        picture: {
+            src: require("../../../assets/images/2.png"),
+            width: 2791,
+            height: 3744,
+        },
     },
     { 
         title: "Excentric",
         subtitle: "Your Style, Your Way",
         description: "Create your individual & unique style and look amazing everyday",
         color: "#FFE4D9",
-        picture: require("../../../assets/images/3.png")
+        picture: {
+            src: require("../../../assets/images/3.png"),
+            width: 2738,
+            height: 3244,
+        },
     },
     { 
         title: "Funky",
         subtitle: "Look Good, Feel Good", 
         description: "Discover the latest trends in fashion and explore your personality", 
         color: "#BFEAF5",
-        picture: require("../../../assets/images/4.png")
+        picture: {
+            src: require("../../../assets/images/4.png"),
+            
+            width: 1757,
+            height: 2551,
+        },
     },
 ];
 
-const OnBoarding = () => {
+export const assets = slides.map((slide) => slide.picture.src);
+
+const Onboarding = ({ navigation }: StackNavigationProps<Routes, "Onboarding">) => {
+
     const scroll = useRef<Animated.ScrollView>(null);
 
     const x = useValue(0);
@@ -57,6 +81,27 @@ const OnBoarding = () => {
             <Animated.View 
                 //@ts-ignore 
                 style={[styles.slider, { backgroundColor }]}>
+                    {slides.map(({ picture }, index) => {
+                        // create untuk kasi tau lagi di posisi image mana 
+                        const opacity = interpolate(x, {
+                            inputRange: [(index - 0.5) * width, index * width, (index + 0.5) * width],
+                            outputRange: [0, 1, 0],
+                            extrapolate: Extrapolate.CLAMP
+                        })
+
+                        return (
+                            <Animated.View style={[styles.underlay, { opacity }]} key={index}>
+                                <Image 
+                                    source={picture.src} 
+                                    style={{ 
+                                        width: width - theme.borderRadii.xl,
+                                        height: ((width - theme.borderRadii.xl) * picture.height / picture.width)
+                                }} />
+                            </Animated.View>
+                        )
+                    })}
+                    
+
                     <Animated.ScrollView
                         ref={scroll} 
                         horizontal 
@@ -100,21 +145,28 @@ const OnBoarding = () => {
                         flexDirection: 'row',
                     }}>
 
-                    {slides.map(({ subtitle, description }, index) => (
+                    {slides.map(({ subtitle, description }, index) => {
+                        const last = index === slides.length - 1;
+
+                        return (
                             // cek data sampai akhir dengan length
                             <Subslide
                                 key={index}
                                 onPress={() => {
-                                    if(scroll.current) {
+                                    // jika dia last page, ketika klik button maka akan ke page Welcome
+                                    if(last) {
+                                        navigation.navigate('Welcome');
+                                    } else {
                                         // logic untuk pindah page ketika dipress button-nya
                                         scroll.current
-                                        .getNode()
+                                        ?.getNode()
                                         .scrollTo({ x: width * (index + 1), animated: true })
                                     }
                                 }} 
-                                last={index === (slides.length - 1)}
-                                {...{ subtitle, description, x }}                        />
-                    ))}
+                                {...{ subtitle, description, last }}
+                            />
+                        )
+                    })}
                     </Animated.View>
                 </View>
             </View>
@@ -129,7 +181,7 @@ const styles = StyleSheet.create({
     },
     slider: {
         height: SLIDE_HEIGHT,
-        borderBottomRightRadius: BORDER_RADIUS, 
+        borderBottomRightRadius: theme.borderRadii.xl, 
 
     },
     footer: {
@@ -138,15 +190,22 @@ const styles = StyleSheet.create({
     footerContent: {
         flex: 1,
         backgroundColor: 'white',
-        borderTopLeftRadius: BORDER_RADIUS
+        borderTopLeftRadius: theme.borderRadii.xl
     },
     pagination: {
         ...StyleSheet.absoluteFillObject,
-        height: BORDER_RADIUS,
+        height: theme.borderRadii.xl,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    underlay: {
+        ...StyleSheet.absoluteFillObject,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        borderBottomRightRadius: theme.borderRadii.xl,
+        overflow: 'hidden',
+    },
 });
 
-export default OnBoarding;
+export default Onboarding;

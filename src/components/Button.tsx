@@ -1,11 +1,13 @@
-import { useTheme } from '@shopify/restyle';
 import React from 'react';
-import {Text, StyleSheet } from 'react-native';
+import {StyleSheet } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import { Theme } from './Theme';
+
+import { useTheme } from '@shopify/restyle';
+
+import { Theme, Text } from './Theme';
 
 interface ButtonProps{
-    variant: "default" | "primary";
+    variant: "default" | "primary" | "transparent";
     label: string;
     onPress: () => void
 }
@@ -13,15 +15,20 @@ interface ButtonProps{
 const Button = ({variant, label, onPress}: ButtonProps) => {
     const theme = useTheme<Theme>();
     // validasi untuk bg color dan color
-    const backgroundColor = variant === "primary" ? theme.colors.primary : theme.colors.white; 
-    const color = variant === "primary" ? theme.colors.white : theme.colors.text
+    const backgroundColor = 
+        variant === "primary" 
+        ? theme.colors.primary 
+        : variant === "transparent"
+        ? "transparent"
+        : theme.colors.grey 
+    const color = variant === "primary" ? theme.colors.white : theme.colors.button
 
     return (
         <RectButton 
             style={[styles.container, { backgroundColor }]}
             {...{ onPress }}    
         >
-            <Text style={[styles.label, { color }]}>{label}</Text>
+            <Text style={{ color }}>{label}</Text>
         </RectButton>
     );
 };
@@ -36,11 +43,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    label: {
-        fontFamily: "SFProText-Regular",
-        fontSize: 15,
-        textAlign: "center"
-    }
 });
 
 export default Button;
