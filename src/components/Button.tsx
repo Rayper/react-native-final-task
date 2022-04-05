@@ -1,6 +1,8 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { useTheme } from '@shopify/restyle';
+import React from 'react';
+import {Text, StyleSheet } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
+import { Theme } from './Theme';
 
 interface ButtonProps{
     variant: "default" | "primary";
@@ -9,9 +11,10 @@ interface ButtonProps{
 }
 
 const Button = ({variant, label, onPress}: ButtonProps) => {
+    const theme = useTheme<Theme>();
     // validasi untuk bg color dan color
-    const backgroundColor = variant === "primary" ? "#2CB9B0" : "rgba(12, 13, 52, 0.05)"; 
-    const color = variant === "primary" ? "white" : "#0C0D34"
+    const backgroundColor = variant === "primary" ? theme.colors.primary : theme.colors.white; 
+    const color = variant === "primary" ? theme.colors.white : theme.colors.text
 
     return (
         <RectButton 
@@ -38,6 +41,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         textAlign: "center"
     }
-})
+});
 
 export default Button;
