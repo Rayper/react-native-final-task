@@ -21,8 +21,6 @@ const Slide = ({ title, right}: SlideProps) => {
 
     return (
         <View style={styles.container}>
-            
-
             <View style={[styles.tittleContainer, { transform }]}>
                 <Text variant='hero'>{title}</Text>
             </View>

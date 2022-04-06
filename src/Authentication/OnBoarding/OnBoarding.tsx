@@ -65,9 +65,7 @@ export const assets = slides.map((slide) => slide.picture.src);
 const Onboarding = ({ navigation }: StackNavigationProps<Routes, "Onboarding">) => {
 
     const scroll = useRef<Animated.ScrollView>(null);
-
     const x = useValue(0);
-
     const onScroll = onScrollEvent({ x });
 
     const backgroundColor = interpolateColor(x, {
@@ -181,16 +179,15 @@ const styles = StyleSheet.create({
     },
     slider: {
         height: SLIDE_HEIGHT,
-        borderBottomRightRadius: theme.borderRadii.xl, 
-
+        borderBottomRightRadius: theme.borderRadii.xl,
     },
     footer: {
-        flex: 1
+        flex: 1,
     },
     footerContent: {
         flex: 1,
         backgroundColor: 'white',
-        borderTopLeftRadius: theme.borderRadii.xl
+        borderTopLeftRadius: theme.borderRadii.xl,
     },
     pagination: {
         ...StyleSheet.absoluteFillObject,
