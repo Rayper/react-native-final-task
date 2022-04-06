@@ -38,10 +38,10 @@ const Container = ({ children, footer }: ContainerProps) => {
             top: -height * 0.61,
           }}
         />
-        <Box flex={1} borderRadius="xl" borderTopLeftRadius={0} backgroundColor="white">
+        <Box flex={1} borderRadius="xl" borderTopLeftRadius="noRadius" backgroundColor="white">
           {children}
         </Box>
-        <Box backgroundColor="secondary" height={200} paddingTop="l">
+        <Box backgroundColor="secondary" paddingTop="l">
           {footer}
           <Box height={insets.bottom} />
         </Box>

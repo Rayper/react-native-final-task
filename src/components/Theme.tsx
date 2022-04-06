@@ -17,11 +17,12 @@ const theme = createTheme({
   colors: {
     mainBackground: palette.white,
     cardPrimaryBackground: palette.purplePrimary,
+    danger: '#FF0058',
     primary: '#2CB9B0',
     secondary: '#0C0D34',
     text: 'rgba(12, 13, 52, 0.7)',
     white: 'white',
-    grey: 'rgba(12, 13, 52, 0.05)',
+    grey: '#F4F0EF',
   },
   spacing: {
     s: 8,
@@ -30,6 +31,7 @@ const theme = createTheme({
     xl: 40,
   },
   borderRadii: {
+    noRadius: 0,
     s: 4,
     m: 10,
     l: 25,
