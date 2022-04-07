@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
+import { TextInput as RNTextInput } from 'react-native';
 
-import { Container, Button, Text } from '../../components';
-import { Box } from '../../components/Theme';
-import TextInput from '../components/Form/TextInput';
-import SocialLogin from '../components/SocialLogin';
-import Checkbox from '../components/Form/Checkbox';
-import { StackNavigationProps, Routes } from '../../components/Navigation';
+import Footer from './components/Footer';
+import { Box } from '../components/Theme';
+
+import { Container, Button, Text } from '../components';
+import { StackNavigationProps, Routes } from '../components/Navigation';
+
+import TextInput from './components/Form/TextInput';
+import Checkbox from './components/Form/Checkbox';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -14,13 +17,13 @@ import * as Yup from 'yup';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
+const Login = ({ navigation }: StackNavigationProps<Routes, 'Login'>) => {
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email format').required('This field is required'),
     password: Yup.string()
+      .required('This field is required')
       .min(4, 'Password too Short!')
-      .max(50, 'Password too long!')
-      .required('This field is required'),
+      .max(50, 'Password too long!'),
   });
 
   const { handleSubmit, control, setValue } = useForm({
@@ -50,22 +53,14 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
   // }, []);
 
   const footer = (
-    <>
-      <SocialLogin />
-      <Box alignItems="center">
-        <Button variant="transparent" onPress={() => alert('Sign Up!')} label={''}>
-          <Box flexDirection="row" justifyContent="center">
-            <Text variant="button" color="white">
-              Don't have an account?
-            </Text>
-            <Text marginLeft="s" variant="button" color="primary">
-              Sign Up here
-            </Text>
-          </Box>
-        </Button>
-      </Box>
-    </>
+    <Footer
+      title="Don't have an account?"
+      action="Sign Up here"
+      onPress={() => navigation.navigate('SignUp')}
+    />
   );
+
+  const password = useRef<RNTextInput>(null);
 
   return (
     <Container {...{ footer }}>
@@ -82,7 +77,7 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
           control={control}
           name="email"
           render={({ field: { value, onChange, onBlur }, fieldState: { error, isTouched } }) => (
-            <Box marginBottom="m">
+            <Box marginBottom="s">
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -91,6 +86,11 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
                 placeholder="Enter your Email"
                 error={error}
                 touched={isTouched}
+                autoCompleteType="email"
+                autoCapitalize="none"
+                returnKeyType="next"
+                returnKeyLabel="next"
+                onSubmitEditing={() => password.current?.focus()}
               />
               <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>
                 {error?.message}
@@ -103,8 +103,9 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
           control={control}
           name="password"
           render={({ field: { value, onChange, onBlur }, fieldState: { isTouched, error } }) => (
-            <Box marginBottom="m">
+            <Box>
               <TextInput
+                ref={password}
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -113,6 +114,11 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
                 icon="lock"
                 placeholder="Enter your Password"
                 secureTextEntry
+                autoCompleteType="password"
+                autoCapitalize="none"
+                returnKeyType="go"
+                returnKeyLabel="go"
+                onSubmitEditing={() => handleSubmit(onSignPressed)}
               />
               <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>
                 {error?.message}

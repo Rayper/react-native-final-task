@@ -54,11 +54,15 @@ const Welcome = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
               label="Sign In"
               onPress={() => navigation.navigate('Login')}
             />
-            <Button variant="default" label="Sign Up" onPress={() => alert('Sign Up !')} />
+            <Button
+              variant="default"
+              label="Sign Up"
+              onPress={() => navigation.navigate('SignUp')}
+            />
             <Button
               variant="transparent"
               label="Forgot Password ?"
-              onPress={() => alert('Forgot Passowrd ?')}
+              onPress={() => navigation.navigate('ForgotPassword')}
             />
           </Box>
         </Box>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { TextInput as RNTextInput, TextInputProps as RNTextInputProps } from 'react-native';
 import { Feather as Icon } from '@expo/vector-icons';
 import { FieldError } from 'react-hook-form';
@@ -10,9 +10,9 @@ interface TextInputProps extends RNTextInputProps {
   error?: FieldError;
 }
 
-const TextInput = ({ icon, error, touched, ...props }: TextInputProps) => {
+const TextInput = forwardRef(({ icon, error, touched, ...props }: TextInputProps, ref) => {
   const theme = useTheme();
-  const SIZE = theme.borderRadii.m * 2;
+  const SIZE = theme.borderRadii.m * 2.1;
 
   const reColor = !touched ? 'text' : error ? 'danger' : 'primary';
   const color = theme.colors[reColor];
@@ -31,7 +31,12 @@ const TextInput = ({ icon, error, touched, ...props }: TextInputProps) => {
       </Box>
 
       <Box flex={1}>
-        <RNTextInput underlineColorAndroid="transparent" placeholderTextColor={color} {...props} />
+        <RNTextInput
+          underlineColorAndroid="transparent"
+          placeholderTextColor={color}
+          {...{ ref }}
+          {...props}
+        />
       </Box>
 
       {touched && (
@@ -42,11 +47,16 @@ const TextInput = ({ icon, error, touched, ...props }: TextInputProps) => {
           justifyContent="center"
           backgroundColor={!error ? 'primary' : 'danger'}
         >
-          <Icon name={!error ? 'check' : 'x'} color="white" size={16} />
+          <Icon
+            name={!error ? 'check' : 'x'}
+            color="white"
+            size={16}
+            style={{ textAlign: 'center' }}
+          />
         </Box>
       )}
     </Box>
   );
-};
+});
 
 export default TextInput;
