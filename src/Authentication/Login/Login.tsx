@@ -16,8 +16,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().min(4, 'Too Short!').max(50, 'Too Long!').required('Required'),
+    email: Yup.string().email('Invalid email format').required('This field is required'),
+    password: Yup.string()
+      .min(4, 'Password too Short!')
+      .max(50, 'Password too long!')
+      .required('This field is required'),
   });
 
   const { handleSubmit, control, setValue } = useForm({
@@ -75,11 +78,11 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
           Login into your Account
         </Text>
 
-        <Box marginBottom="m">
-          <Controller
-            control={control}
-            name="email"
-            render={({ field: { value, onChange, onBlur }, fieldState: { error, isTouched } }) => (
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { value, onChange, onBlur }, fieldState: { error, isTouched } }) => (
+            <Box marginBottom="m">
               <TextInput
                 value={value}
                 onChangeText={onChange}
@@ -89,24 +92,32 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Welcome'>) => {
                 error={error}
                 touched={isTouched}
               />
-            )}
-          />
-        </Box>
+              <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>
+                {error?.message}
+              </Text>
+            </Box>
+          )}
+        />
 
         <Controller
           control={control}
           name="password"
           render={({ field: { value, onChange, onBlur }, fieldState: { isTouched, error } }) => (
-            <TextInput
-              value={value}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              error={error}
-              touched={isTouched}
-              icon="lock"
-              placeholder="Enter your Password"
-              secureTextEntry
-            />
+            <Box marginBottom="m">
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                error={error}
+                touched={isTouched}
+                icon="lock"
+                placeholder="Enter your Password"
+                secureTextEntry
+              />
+              <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>
+                {error?.message}
+              </Text>
+            </Box>
           )}
         />
 
