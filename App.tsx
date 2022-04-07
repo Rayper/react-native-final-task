@@ -1,11 +1,13 @@
 import 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 import * as React from 'react';
 
 import { ThemeProvider } from '@shopify/restyle';
 
 import { assets as authenticationAssets, AuthenticationNavigator } from './src/Authentication';
-import { LoadAssets, theme } from './src/components';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { LoadAssets } from './src/components';
+import { theme } from './src/components/Theme';
 
 const assets = [...authenticationAssets];
 

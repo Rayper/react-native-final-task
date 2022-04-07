@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Box, Text } from '../../../components/Theme';
 
@@ -7,13 +7,15 @@ import { RectButton } from 'react-native-gesture-handler';
 
 interface CheckboxProps {
   label: string;
+  checked: boolean;
+  onChange: (val: boolean) => void;
 }
 
-const Checkbox = ({ label }: CheckboxProps) => {
-  const [checked, setChecked] = useState(false);
+const Checkbox = ({ label, onChange, checked }: CheckboxProps) => {
   return (
-    // ketika diklik, maka akan jadi true
-    <RectButton onPress={() => setChecked((c) => !c)} style={{ justifyContent: 'center' }}>
+    // ketika diklik, maka value nya berubah jadi true
+    // karena default value nya adalah false
+    <RectButton onPress={() => onChange(!checked)} style={{ justifyContent: 'center' }}>
       <Box flexDirection="row" alignItems="center">
         <Box
           alignItems="center"
