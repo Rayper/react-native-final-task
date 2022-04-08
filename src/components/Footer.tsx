@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { Box, Text } from '../../components';
+import { Box, Text } from './index';
 import SocialLogin from './SocialLogin';
 
 interface FooterProps {

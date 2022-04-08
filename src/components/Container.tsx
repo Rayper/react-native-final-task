@@ -45,10 +45,11 @@ const Container = ({ children, footer }: ContainerProps) => {
         <Box flex={1} borderRadius="xl" borderTopLeftRadius="noRadius" backgroundColor="white">
           <KeyboardAwareScrollView>{children}</KeyboardAwareScrollView>
         </Box>
-        <Box backgroundColor="secondary" paddingTop="l">
-          {footer}
-          <Box height={insets.bottom} />
-        </Box>
+      </Box>
+
+      <Box backgroundColor="secondary" paddingTop="l">
+        {footer}
+        <Box height={insets.bottom} />
       </Box>
     </Box>
   );

@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import Svg, { Circle, Path } from 'react-native-svg';
 
-import { Box, useTheme } from '../../components/Theme';
+import { Box, useTheme } from './index';
 
 const Google = () => (
   <Svg height={20} viewBox="0 0 512 512" width={20} fill="none">

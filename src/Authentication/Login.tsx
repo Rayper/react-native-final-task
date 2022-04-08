@@ -2,20 +2,20 @@ import React, { useEffect, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TextInput as RNTextInput } from 'react-native';
 
-import Footer from './components/Footer';
+import Footer from '../components/Footer';
 import { Box } from '../components/Theme';
 
 import { Container, Button, Text } from '../components';
 import { StackNavigationProps, Routes } from '../components/Navigation';
 
-import TextInput from './components/Form/TextInput';
-import Checkbox from './components/Form/Checkbox';
+import TextInput from '../components/Form/TextInput';
+import Checkbox from '../components/Form/Checkbox';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as Yup from 'yup';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }: StackNavigationProps<Routes, 'Login'>) => {
   const LoginSchema = Yup.object().shape({
@@ -142,7 +142,11 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Login'>) => {
               />
             )}
           />
-          <Button variant="transparent" onPress={() => alert('Forgot password!')} label="">
+          <Button
+            variant="transparent"
+            onPress={() => navigation.navigate('ForgotPassword')}
+            label=""
+          >
             <Text color="primary" marginLeft="xl">
               Forgot password
             </Text>
