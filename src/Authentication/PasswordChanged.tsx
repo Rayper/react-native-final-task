@@ -25,13 +25,14 @@ const PasswordChanged = ({ navigation }: StackNavigationProps<Routes, 'PasswordC
           alignItems="center"
           justifyContent="center"
           style={{ height: SIZE, width: SIZE, borderRadius: SIZE / 2 }}
+          marginTop='xl'
         >
           <Text color="primary" textAlign="center">
             <Icon name="check" size={50} />
           </Text>
         </Box>
 
-        <Text variant="title1" textAlign="center" marginVertical="xl">
+        <Text variant="title1" textAlign="center" marginBottom="m">
           Your password was successfully changed
         </Text>
 
