@@ -1,13 +1,19 @@
 import React from 'react';
-import { Box, Container, Text, Button, CloseButton } from '../components';
-import { Routes, StackNavigationProps } from '../components/Navigation';
+import { Box, Container, Text, Button, RoundedIconButton } from '../components';
+import { AuthNavigationProps } from '../components/Navigation';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-const PasswordChanged = ({ navigation }: StackNavigationProps<Routes, 'PasswordChanged'>) => {
+const PasswordChanged = ({ navigation }: AuthNavigationProps<'PasswordChanged'>) => {
   const footer = (
     <Box flexDirection="row" justifyContent="center">
-      <CloseButton onPress={() => navigation.pop()} />
+      <RoundedIconButton
+        name="x"
+        size={60}
+        backgroundColor="white"
+        color="secondary"
+        onPress={() => navigation.pop()}
+      />
     </Box>
   );
 
@@ -18,21 +24,19 @@ const PasswordChanged = ({ navigation }: StackNavigationProps<Routes, 'PasswordC
   };
 
   return (
-    <Container {...{ footer }}>
-      <Box flex={1} justifyContent="center" alignItems="center" marginTop="xl">
-        <Box
-          backgroundColor="primaryLight"
-          alignItems="center"
-          justifyContent="center"
-          style={{ height: SIZE, width: SIZE, borderRadius: SIZE / 2 }}
-          marginTop='xl'
-        >
-          <Text color="primary" textAlign="center">
-            <Icon name="check" size={50} />
-          </Text>
+    <Container {...{ footer }} pattern={0}>
+      <Box flex={1} justifyContent="center" alignItems="center" marginTop="xl" padding="xl">
+        <Box marginTop="xl">
+          <RoundedIconButton
+            name="check"
+            size={SIZE}
+            backgroundColor="primaryLight"
+            color="primary"
+            onPress={() => null}
+          />
         </Box>
 
-        <Text variant="title1" textAlign="center" marginBottom="m">
+        <Text variant="title1" textAlign="center" marginVertical="m">
           Your password was successfully changed
         </Text>
 

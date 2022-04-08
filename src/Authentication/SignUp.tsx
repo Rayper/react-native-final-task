@@ -6,10 +6,9 @@ import Footer from '../components/Footer';
 import { Box } from '../components/Theme';
 
 import { Container, Button, Text } from '../components';
-import { StackNavigationProps, Routes } from '../components/Navigation';
+import { AuthNavigationProps } from '../components/Navigation';
 
 import TextInput from '../components/Form/TextInput';
-import Checkbox from '../components/Form/Checkbox';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -17,7 +16,7 @@ import * as Yup from 'yup';
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SignUp = ({ navigation }: StackNavigationProps<Routes, 'SignUp'>) => {
+const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
   const SignUpSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email format').required('This field is required'),
     password: Yup.string()
@@ -56,7 +55,7 @@ const SignUp = ({ navigation }: StackNavigationProps<Routes, 'SignUp'>) => {
   const confirmpassword = useRef<RNTextInput>(null);
 
   return (
-    <Container {...{ footer }}>
+    <Container {...{ footer }} pattern={1}>
       <Box padding="l">
         <Text variant="title1" textAlign="center" marginBottom="l">
           Create Account

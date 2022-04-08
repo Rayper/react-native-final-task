@@ -3,6 +3,7 @@ import { TextInput as RNTextInput, TextInputProps as RNTextInputProps } from 're
 import { Feather as Icon } from '@expo/vector-icons';
 import { FieldError } from 'react-hook-form';
 import { Box, useTheme } from '../Theme';
+import RoundedIcon from '../RoundedIcon';
 
 interface TextInputProps extends RNTextInputProps {
   icon: string;
@@ -41,20 +42,12 @@ const TextInput = forwardRef<RNTextInput, TextInputProps>(
         </Box>
 
         {touched && (
-          <Box
-            height={SIZE}
-            width={SIZE}
-            borderRadius="m"
-            justifyContent="center"
+          <RoundedIcon
+            name={!error ? 'check' : 'x'}
             backgroundColor={!error ? 'primary' : 'danger'}
-          >
-            <Icon
-              name={!error ? 'check' : 'x'}
-              color="white"
-              size={16}
-              style={{ textAlign: 'center' }}
-            />
-          </Box>
+            color="white"
+            size={SIZE}
+          />
         )}
       </Box>
     );

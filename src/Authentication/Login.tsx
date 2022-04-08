@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TextInput as RNTextInput } from 'react-native';
 
@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { Box } from '../components/Theme';
 
 import { Container, Button, Text } from '../components';
-import { StackNavigationProps, Routes } from '../components/Navigation';
+import { AuthNavigationProps } from '../components/Navigation';
 
 import TextInput from '../components/Form/TextInput';
 import Checkbox from '../components/Form/Checkbox';
@@ -14,10 +14,11 @@ import Checkbox from '../components/Form/Checkbox';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as Yup from 'yup';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = ({ navigation }: StackNavigationProps<Routes, 'Login'>) => {
+const Login = ({ navigation }: AuthNavigationProps<'Login'>) => {
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email format').required('This field is required'),
     password: Yup.string()
@@ -38,7 +39,7 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Login'>) => {
 
   const onSignPressed = (data: any) => {
     console.log(data);
-    navigation.navigate('Welcome');
+    navigation.navigate('Home');
   };
 
   // simpen value email ketika remember me true
@@ -63,7 +64,7 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Login'>) => {
   const password = useRef<RNTextInput>(null);
 
   return (
-    <Container {...{ footer }}>
+    <Container {...{ footer }} pattern={0}>
       <Box padding="l">
         <Text variant="title1" textAlign="center" marginBottom="l">
           Welcome back
@@ -142,15 +143,11 @@ const Login = ({ navigation }: StackNavigationProps<Routes, 'Login'>) => {
               />
             )}
           />
-          <Button
-            variant="transparent"
-            onPress={() => navigation.navigate('ForgotPassword')}
-            label=""
-          >
+          <BorderlessButton onPress={() => navigation.navigate('ForgotPassword')}>
             <Text color="primary" marginLeft="xl">
               Forgot password
             </Text>
-          </Button>
+          </BorderlessButton>
         </Box>
 
         <Box alignItems="center" marginTop="m">
