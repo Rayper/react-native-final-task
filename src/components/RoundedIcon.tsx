@@ -12,7 +12,7 @@ export interface RoundedIconProps {
 }
 
 const RoundedIcon = ({ name, size, color, backgroundColor }: RoundedIconProps) => {
-  const iconSize = size * 0.7;
+  const iconSize = size * 0.5;
 
   return (
     <Box
@@ -23,10 +23,11 @@ const RoundedIcon = ({ name, size, color, backgroundColor }: RoundedIconProps) =
       style={{ borderRadius: size / 2 }}
       {...{ backgroundColor }}
     >
-      <Text style={{ width: iconSize, height: iconSize }} {...{ color }}>
+      <Text {...{ color }} style={{ alignItems: 'center', justifyContent: 'center' }}>
         <Icon size={iconSize} {...{ name }} />
       </Text>
     </Box>
   );
 };
+
 export default RoundedIcon;

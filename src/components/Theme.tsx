@@ -1,4 +1,4 @@
-import { Dimensions, ImageStyle, TextStyle, ViewStyle } from 'react-native';
+import { ImageStyle, TextStyle, ViewStyle } from 'react-native';
 
 import { createBox, createText, createTheme, useTheme as useReTheme } from '@shopify/restyle';
 
@@ -13,6 +13,18 @@ const palette = {
 
   black: '#0B0B0B',
   white: '#F0F2F3',
+
+  cyan: '#2CB9B0',
+  lightCyan: '#E7F9F7',
+  darkBlue: '#0C0D34',
+  orange: '#FE5E33',
+  yellow: '#FFC641',
+  pink: '#FF87A2',
+  darkPink: '#FF0058',
+  violet: '#442CB9',
+  lightBlue: '#BFEAF5',
+  grey: '#F4F0EF',
+  darkGrey: '#808080',
 };
 
 export const theme = createTheme({
@@ -27,6 +39,12 @@ export const theme = createTheme({
     white: 'white',
     grey: '#F4F0EF',
     primaryLight: '#E7F9F7',
+    drawer1: palette.orange,
+    drawer2: palette.yellow,
+    drawer3: palette.pink,
+    drawer4: palette.violet,
+    info: palette.darkGrey,
+    edit: palette.lightBlue,
   },
   spacing: {
     s: 8,
