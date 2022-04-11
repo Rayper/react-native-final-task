@@ -93,7 +93,7 @@ const Drawer = () => {
             position="absolute"
             left={DRAWER_WIDTH / 2 - 50}
             top={-50}
-            backgroundColor="primary"
+            backgroundColor="userCircle"
             style={{ borderRadius: 50 }}
             width={100}
             height={100}

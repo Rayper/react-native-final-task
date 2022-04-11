@@ -42,6 +42,7 @@ export const theme = createTheme({
     primaryLight: '#E7F9F7',
     outfitIdeasBg: '#1f90d9',
     outfirIdeasFooter: '#0e1b50',
+    userCircle: '#311659',
     drawer1: palette.orange,
     drawer2: palette.yellow,
     drawer3: palette.pink,
