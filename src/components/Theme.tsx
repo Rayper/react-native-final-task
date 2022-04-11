@@ -38,7 +38,10 @@ export const theme = createTheme({
     text: 'rgba(12, 13, 52, 0.7)',
     white: 'white',
     grey: '#F4F0EF',
+    lightGrey: '#FAFAFA',
     primaryLight: '#E7F9F7',
+    outfitIdeasBg: '#1f90d9',
+    outfirIdeasFooter: '#0e1b50',
     drawer1: palette.orange,
     drawer2: palette.yellow,
     drawer3: palette.pink,
@@ -92,6 +95,12 @@ export const theme = createTheme({
       fontSize: 15,
       fontFamily: 'SF-Pro-Display-Medium',
       color: 'text',
+    },
+    Header: {
+      fontSize: 12,
+      lineHeight: 24,
+      fontFamily: 'SF-Pro-Display-Semibold',
+      color: 'secondary',
     },
   },
 });

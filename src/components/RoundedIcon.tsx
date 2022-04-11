@@ -12,7 +12,7 @@ export interface RoundedIconProps {
 }
 
 const RoundedIcon = ({ name, size, color, backgroundColor }: RoundedIconProps) => {
-  const iconSize = size * 0.5;
+  const iconSize = size * 0.6;
 
   return (
     <Box

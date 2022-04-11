@@ -9,10 +9,10 @@ import { assets as authenticationAssets, AuthenticationNavigator } from './src/A
 import { LoadAssets } from './src/components';
 import { theme } from './src/components/Theme';
 import { createStackNavigator } from '@react-navigation/stack';
-import { HomeNavigator } from './src/Home';
+import { HomeNavigator, assets as HomeAssets } from './src/Home';
 import { AppRoutes } from './src/components/Navigation';
 
-const assets = [...authenticationAssets];
+const assets = [...authenticationAssets, ...HomeAssets];
 
 const fonts = {
   "SF-Pro-Display-Bold": require("./assets/fonts/SF-Pro-Display-Bold.otf"),

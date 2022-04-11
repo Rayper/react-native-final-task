@@ -24,7 +24,7 @@ const PasswordChanged = ({ navigation }: AuthNavigationProps<'PasswordChanged'>)
   };
 
   return (
-    <Container {...{ footer }} pattern={0}>
+    <Container {...{ footer }} pattern={4}>
       <Box flex={1} justifyContent="center" alignItems="center" marginTop="xl" padding="xl">
         <Box marginTop="xl">
           <RoundedIconButton

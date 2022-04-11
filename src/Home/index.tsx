@@ -3,7 +3,7 @@ import React from 'react';
 
 import { HomeRoutes } from '../components/Navigation';
 import DrawerContent, { DRAWER_WIDTH } from './Drawer/Drawer';
-
+export { assets } from './Drawer';
 import OutfitIdeas from './OutfitIdeas/OutfitIdeas';
 
 const Drawer = createDrawerNavigator<HomeRoutes>();

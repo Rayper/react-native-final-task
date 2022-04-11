@@ -9,6 +9,8 @@ export const assets = [
   require('../../assets/images/patterns/1.png'),
   require('../../assets/images/patterns/2.png'),
   require('../../assets/images/patterns/3.png'),
+  require('../../assets/images/patterns/purpleBlue.jpg'),
+  require('../../assets/images/patterns/drawer.jpg'),
 ] as const;
 
 const { width } = Dimensions.get('window');
@@ -18,7 +20,7 @@ const height = width * aspectRatio;
 interface ContainerProps {
   children: ReactNode;
   footer: ReactNode;
-  pattern: 0 | 1 | 2;
+  pattern: 0 | 1 | 2 | 3 | 4;
 }
 
 const Container = ({ children, footer, pattern }: ContainerProps) => {

@@ -55,7 +55,7 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
   const confirmpassword = useRef<RNTextInput>(null);
 
   return (
-    <Container {...{ footer }} pattern={1}>
+    <Container {...{ footer }} pattern={4}>
       <Box padding="l">
         <Text variant="title1" textAlign="center" marginBottom="l">
           Create Account

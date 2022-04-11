@@ -64,7 +64,7 @@ const Login = ({ navigation }: AuthNavigationProps<'Login'>) => {
   const password = useRef<RNTextInput>(null);
 
   return (
-    <Container {...{ footer }} pattern={0}>
+    <Container {...{ footer }} pattern={4}>
       <Box padding="l">
         <Text variant="title1" textAlign="center" marginBottom="l">
           Welcome back
