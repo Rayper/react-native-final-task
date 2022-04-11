@@ -1,8 +1,8 @@
 import React from 'react';
-import { Dimensions, Image, ImageRequireSource, StyleSheet } from 'react-native';
+import { Dimensions, ImageRequireSource, StyleSheet } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { add, Extrapolate, interpolate } from 'react-native-reanimated';
-import { mix, mixColor, step, usePanGestureHandler } from 'react-native-redash';
+import { mix, mixColor, usePanGestureHandler } from 'react-native-redash';
 
 import { Box } from '../../components';
 
@@ -55,9 +55,9 @@ const Card = ({ position, onSwipe, source, step }: CardProps) => {
   });
 
   return (
-    <Box style={StyleSheet.absoluteFillObject} justifyContent="center" alignItems="center">
+    <Box style={StyleSheet.absoluteFill} justifyContent="center" alignItems="center">
       <PanGestureHandler {...gestureHandler}>
-        <Animated.View //@ts-config
+        <Animated.View
           style={{
             backgroundColor,
             width,

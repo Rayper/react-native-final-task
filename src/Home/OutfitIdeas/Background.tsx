@@ -7,7 +7,7 @@ const Background = () => {
 
   return (
     <View style={StyleSheet.absoluteFill}>
-      <Box flex={1 / 3} backgroundColor="secondary">
+      <Box flex={1 / 3} backgroundColor="darkPurple">
         <Box flex={1} backgroundColor="white" borderBottomRightRadius="xl" />
       </Box>
       <Box flex={1 / 3}>
@@ -24,7 +24,7 @@ const Background = () => {
           }}
         />
       </Box>
-      <Box flex={1 / 3} backgroundColor="secondary">
+      <Box flex={1 / 3} backgroundColor="darkPurple">
         <Box flex={1} backgroundColor="outfirIdeasFooter" borderTopLeftRadius="xl" />
       </Box>
     </View>
