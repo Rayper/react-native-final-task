@@ -38,6 +38,7 @@ export const theme = createTheme({
     text: 'rgba(12, 13, 52, 0.7)',
     white: 'white',
     grey: '#F4F0EF',
+    darkGrey: '#808080',
     lightGrey: '#FAFAFA',
     primaryLight: '#E7F9F7',
     outfitIdeasBg: '#1f90d9',

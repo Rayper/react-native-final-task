@@ -33,8 +33,8 @@ const data: DataPoint[] = [
   },
   {
     date: new Date('2021-10-10').getTime(),
-    value: 0,
-    color: 'yellow',
+    value: 190.9,
+    color: 'primary',
   },
 ];
 
