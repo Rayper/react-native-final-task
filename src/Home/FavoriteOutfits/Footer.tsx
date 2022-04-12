@@ -7,7 +7,7 @@ interface FooterProps {
   onPress: () => void;
 }
 
-function Footer({ label, onPress }: FooterProps) {
+const Footer = ({ label, onPress }: FooterProps) => {
   const issets = useSafeAreaInsets();
 
   return (
@@ -17,6 +17,6 @@ function Footer({ label, onPress }: FooterProps) {
       </Box>
     </Box>
   );
-}
+};
 
 export default Footer;

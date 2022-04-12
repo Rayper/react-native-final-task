@@ -14,7 +14,7 @@ interface OutfitProps {
   width: number;
 }
 
-function Outfit({ outfit, width }: OutfitProps) {
+const Outfit = ({ outfit, width }: OutfitProps) => {
   const [selected, setSelected] = useState(false);
 
   return (
@@ -49,6 +49,6 @@ function Outfit({ outfit, width }: OutfitProps) {
       </Box>
     </BorderlessTap>
   );
-}
+};
 
 export default Outfit;
