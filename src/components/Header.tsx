@@ -31,7 +31,8 @@ const Header = ({ left, tittle, right, dark }: HeaderProps) => {
       paddingHorizontal="s"
     >
       <RoundedIconButton
-        size={45}
+        iconRatio={0.5}
+        size={44}
         name={left.icon}
         onPress={left.onPress}
         {...{ color, backgroundColor }}
@@ -40,7 +41,8 @@ const Header = ({ left, tittle, right, dark }: HeaderProps) => {
         {tittle.toUpperCase()}
       </Text>
       <RoundedIconButton
-        size={45}
+        iconRatio={0.5}
+        size={44}
         name={right.icon}
         onPress={right.onPress}
         {...{ color, backgroundColor }}

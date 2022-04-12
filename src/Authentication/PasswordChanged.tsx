@@ -8,6 +8,7 @@ const PasswordChanged = ({ navigation }: AuthNavigationProps<'PasswordChanged'>)
   const footer = (
     <Box flexDirection="row" justifyContent="center">
       <RoundedIconButton
+        iconRatio={0.5}
         name="x"
         size={60}
         backgroundColor="white"
@@ -28,6 +29,7 @@ const PasswordChanged = ({ navigation }: AuthNavigationProps<'PasswordChanged'>)
       <Box flex={1} justifyContent="center" alignItems="center" marginTop="xl" padding="xl">
         <Box marginTop="xl">
           <RoundedIconButton
+            iconRatio={0.5}
             name="check"
             size={SIZE}
             backgroundColor="primaryLight"

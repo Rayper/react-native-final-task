@@ -3,8 +3,10 @@ import React from 'react';
 
 import { HomeRoutes } from '../components/Navigation';
 import DrawerContent, { DRAWER_WIDTH } from './Drawer/Drawer';
+import FavoriteOutfits from './FavoriteOutfits';
+import OutfitIdeas from './OutfitIdeas';
+
 export { assets } from './Drawer';
-import OutfitIdeas from './OutfitIdeas/OutfitIdeas';
 
 const Drawer = createDrawerNavigator<HomeRoutes>();
 
@@ -20,6 +22,7 @@ export const HomeNavigator = () => {
       }}
     >
       <Drawer.Screen name="OutfitIdeas" component={OutfitIdeas} />
+      <Drawer.Screen name="FavoriteOutfits" component={FavoriteOutfits} />
     </Drawer.Navigator>
   );
 };
