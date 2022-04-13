@@ -1,11 +1,18 @@
 import { ImageStyle, TextStyle, ViewStyle } from 'react-native';
 
-import { createBox, createText, createTheme, useTheme as useReTheme } from '@shopify/restyle';
+import {
+  createBox,
+  createText,
+  createTheme,
+  useTheme as useReTheme,
+  ThemeProvider as ReStyleThemeProvider,
+} from '@shopify/restyle';
+import { ReactNode } from 'react';
 
-const palette = {
+export const palette = {
   purpleLight: '#8C6FF7',
   purplePrimary: '#5A31F4',
-  purpleDark: '#3F22AB',
+  purpleDark: '#160029',
 
   greenLight: '#56DCBA',
   greenPrimary: '#0ECD9D',
@@ -25,38 +32,41 @@ const palette = {
   lightBlue: '#BFEAF5',
   grey: '#F4F0EF',
   darkGrey: '#808080',
+  lightGrey: '#FAFAFA',
 };
 
 export const theme = createTheme({
   colors: {
     mainBackground: palette.white,
     cardPrimaryBackground: palette.purplePrimary,
-    danger: '#FF0058',
-    primary: '#2CB9B0',
-    black: '#0B0B0B',
-    secondary: '#0C0D34',
-    text: 'rgba(12, 13, 52, 0.7)',
-    white: 'white',
-    grey: '#F4F0EF',
-    darkGrey: '#808080',
-    lightGrey: '#FAFAFA',
-    primaryLight: '#E7F9F7',
-    outfitIdeasBg: '#1f90d9',
-    outfirIdeasFooter: '#0e1b50',
-    userCircle: '#311659',
-    darkPurple: '#13042b',
-    orange: '#FE5E33',
-    yellow: '#FFC641',
-    pink: '#FF87A2',
-    darkPink: '#FF0058',
-    violet: '#442CB9',
-    lightBlue: '#BFEAF5',
+    orange: palette.orange,
+    yellow: palette.yellow,
+    pink: palette.pink,
+    darkPink: palette.darkPink,
+    violet: palette.violet,
+    lightBlue: palette.lightBlue,
+    black: palette.black,
+    white: palette.white,
+    grey: palette.grey,
+    lightGrey: palette.lightGrey,
+    darkGrey: palette.darkGrey,
     drawer1: palette.orange,
     drawer2: palette.yellow,
     drawer3: palette.pink,
     drawer4: palette.violet,
     info: palette.darkGrey,
     edit: palette.lightBlue,
+    darkPurple: palette.purpleDark,
+    purplePrimary: palette.purplePrimary,
+    purpleLight: palette.purpleLight,
+    danger: '#FF0058',
+    primary: '#2CB9B0',
+    primaryLight: '#E7F9F7',
+    secondary: '#0C0D34',
+    text: 'rgba(12, 13, 52, 0.7)',
+    outfitIdeasBg: '#1f90d9',
+    outfirIdeasFooter: '#0e1b50',
+    userCircle: '#311659',
   },
   spacing: {
     s: 8,
@@ -118,6 +128,10 @@ export const theme = createTheme({
     },
   },
 });
+
+export const ThemeProvider = ({ children }: { children: ReactNode }) => (
+  <ReStyleThemeProvider theme={theme}>{children}</ReStyleThemeProvider>
+);
 
 export const Text = createText<Theme>();
 export const Box = createBox<Theme>();

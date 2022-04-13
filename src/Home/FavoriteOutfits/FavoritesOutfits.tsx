@@ -74,7 +74,8 @@ const FavoriteOutfits = ({ navigation }: HomeNavigationProps<'FavoriteOutfits'>)
   // untuk animasi
   const transition = (
     <Transition.Together>
-      <Transition.Change interpolation="easeInOut" durationMs={1000} />
+      <Transition.Out type="fade" />
+      <Transition.In type="fade" />
     </Transition.Together>
   );
 
@@ -91,19 +92,20 @@ const FavoriteOutfits = ({ navigation }: HomeNavigationProps<'FavoriteOutfits'>)
             paddingHorizontal: theme.spacing.m,
             paddingBottom: footerHeight,
           }}
+          showsVerticalScrollIndicator={false}
         >
           <Transitioning.View ref={list} transition={transition}>
             <Box flexDirection="row">
               <Box marginRight="m">
                 {outfits
-                  .filter(({ id }) => id % 2 !== 0)
+                  .filter((_, i) => i % 2 !== 0)
                   .map((outfit) => (
                     <Outfit key={outfit.id} outfit={outfit} width={width} />
                   ))}
               </Box>
               <Box>
                 {outfits
-                  .filter(({ id }) => id % 2 === 0)
+                  .filter((_, i) => i % 2 === 0)
                   .map((outfit) => (
                     <Outfit key={outfit.id} outfit={outfit} width={width} />
                   ))}

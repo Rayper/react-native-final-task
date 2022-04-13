@@ -15,6 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as Yup from 'yup';
 import { BorderlessButton } from 'react-native-gesture-handler';
+import { CommonActions } from '@react-navigation/native';
 
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -37,9 +38,14 @@ const Login = ({ navigation }: AuthNavigationProps<'Login'>) => {
     resolver: yupResolver(LoginSchema),
   });
 
-  const onSignPressed = (data: any) => {
+  const onSignInPressed = (data: any) => {
     console.log(data);
-    navigation.navigate('Home');
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      }),
+    );
   };
 
   // simpen value email ketika remember me true
@@ -119,7 +125,7 @@ const Login = ({ navigation }: AuthNavigationProps<'Login'>) => {
                 autoCapitalize="none"
                 returnKeyType="go"
                 returnKeyLabel="go"
-                onSubmitEditing={() => handleSubmit(onSignPressed)}
+                onSubmitEditing={() => handleSubmit(onSignInPressed)}
               />
               <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>
                 {error?.message}
@@ -151,7 +157,7 @@ const Login = ({ navigation }: AuthNavigationProps<'Login'>) => {
         </Box>
 
         <Box alignItems="center" marginTop="m">
-          <Button variant="primary" onPress={handleSubmit(onSignPressed)} label="Sign In" />
+          <Button variant="primary" onPress={handleSubmit(onSignInPressed)} label="Sign In" />
         </Box>
       </Box>
     </Container>

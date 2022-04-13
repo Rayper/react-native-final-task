@@ -1,11 +1,9 @@
-import { DrawerActions, useNavigation } from '@react-navigation/native';
+import { CommonActions, DrawerActions, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Dimensions, Image } from 'react-native';
 import { Box, Header, Text } from '../../components';
 import { theme } from '../../components/Theme';
 import DrawerItem, { DrawerItemProps } from './DrawerItem';
-
-interface DrawerProps {}
 
 export const assets = [require('../../../assets/images/patterns/drawer.jpg')];
 const { width } = Dimensions.get('window');
@@ -47,7 +45,15 @@ const items: DrawerItemProps[] = [
   {
     icon: 'log-out',
     label: 'Logout',
-    screen: 'Logout',
+    onPress: (
+      navigation, //@ts-ignore
+    ) =>
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'Authentication' }],
+        }),
+      ),
     color: 'secondary',
   },
 ];
