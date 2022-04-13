@@ -4,18 +4,17 @@ import { Dimensions } from 'react-native';
 import { Box, useTheme } from '../../../components';
 import { Theme } from '../../../components/Theme';
 
-import Underlay from './Underlay';
+import Underlay, { MARGIN } from './Underlay';
+import { lerp } from './Scale';
 
 const aspecRatio = 195 / 305;
 const { width: wWidth } = Dimensions.get('window');
-const lerp = (v0: number, v1: number, t: number) => {
-  return (1 - t) * v0 + t * v1;
-};
 
 export interface DataPoint {
   date: number;
   value: number;
   color: keyof Theme['colors'];
+  id: number;
 }
 
 interface GraphProps {
@@ -24,31 +23,35 @@ interface GraphProps {
 
 const Graph = ({ data }: GraphProps) => {
   const theme = useTheme();
+
   const canvasWidth = wWidth - theme.spacing.m * 2;
   const canvasHeight = canvasWidth * aspecRatio;
-  const width = canvasWidth - theme.spacing.l;
-  const height = canvasHeight - theme.spacing.l;
+
+  const width = canvasWidth - 24;
+    const height = canvasHeight - 24;
+
   const values = data.map((p) => p.value);
   const dates = data.map((p) => p.date);
-  const step = width / data.length;
-  // const minX = Math.min(...dates);
-  // const maxX = Math.max(...dates);
+
   const minY = Math.min(...values);
   const maxY = Math.max(...values);
+  const step = width / data.length;
 
   return (
-    <Box marginTop="xl" paddingBottom="l" paddingLeft="l">
-      <Underlay minY={minY} maxY={maxY} dates={dates} step={step}/>
+    <Box marginTop="xl" paddingBottom={MARGIN} paddingLeft={MARGIN}>
+      <Underlay 
+        dates={dates} minY={minY} maxY={maxY} step={step}
+      />
       <Box width={width} height={height}>
         {data.map((point, i) => {
-          // jika valuenya 0
-          if (point.value === 0) {
-            return null;
-          }
-          const step = width / data.length;
+          // jika data-nya gak ada
+          if(point.value === 0){
+            return null
+        }
+
           return (
             <Box
-              key={point.date}
+              key={point.id}
               position="absolute"
               left={i * step}
               bottom={0}

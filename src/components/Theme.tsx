@@ -94,6 +94,11 @@ export const theme = createTheme({
       fontFamily: 'SF-Pro-Display-Semibold',
       color: 'secondary',
     },
+    title3: {
+      fontSize: 16,
+      fontFamily: 'SF-Pro-Display-Semibold',
+      color: 'secondary',
+    },
     body: {
       fontSize: 16,
       lineHeight: 25,
