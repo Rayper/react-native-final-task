@@ -27,8 +27,8 @@ const Graph = ({ data }: GraphProps) => {
   const canvasWidth = wWidth - theme.spacing.m * 2;
   const canvasHeight = canvasWidth * aspecRatio;
 
-  const width = canvasWidth - 24;
-    const height = canvasHeight - 24;
+  const width = canvasWidth - theme.spacing[MARGIN];
+	const height = canvasHeight - theme.spacing[MARGIN];
 
   const values = data.map((p) => p.value);
   const dates = data.map((p) => p.date);
@@ -39,15 +39,13 @@ const Graph = ({ data }: GraphProps) => {
 
   return (
     <Box marginTop="xl" paddingBottom={MARGIN} paddingLeft={MARGIN}>
-      <Underlay 
-        dates={dates} minY={minY} maxY={maxY} step={step}
-      />
+      <Underlay dates={dates} minY={minY} maxY={maxY} step={step} />
       <Box width={width} height={height}>
         {data.map((point, i) => {
           // jika data-nya gak ada
-          if(point.value === 0){
-            return null
-        }
+          if (point.value === 0) {
+            return null;
+          }
 
           return (
             <Box

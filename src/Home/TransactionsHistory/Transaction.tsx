@@ -25,7 +25,9 @@ const Transaction = ({ transaction }: TransactionProps) => {
         </Box>
       </Box>
       <Box>
-        <Text color="secondary" variant='title3'>See more</Text>
+        <Text color="secondary" variant="title3">
+          See more
+        </Text>
       </Box>
     </Box>
   );

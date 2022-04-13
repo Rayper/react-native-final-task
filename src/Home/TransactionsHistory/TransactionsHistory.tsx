@@ -48,7 +48,7 @@ const data: DataPoint[] = [
 
 const TransactionsHistory = ({ navigation }: HomeNavigationProps<'TransactionsHistory'>) => {
   return (
-    <Box flex={1} backgroundColor='white'>
+    <Box flex={1} backgroundColor="white">
       <Header
         tittle="Transactions History"
         left={{ icon: 'menu', onPress: () => navigation.openDrawer() }}
