@@ -4,6 +4,7 @@ import React from 'react';
 import { HomeRoutes } from '../components/Navigation';
 
 import DrawerContent, { DRAWER_WIDTH } from './Drawer/Drawer';
+import EditProfile from './EditProfile';
 import FavoriteOutfits from './FavoriteOutfits';
 import OutfitIdeas from './OutfitIdeas';
 import TransactionsHistory from './TransactionsHistory';
@@ -26,6 +27,7 @@ export const HomeNavigator = () => {
       <Drawer.Screen name="OutfitIdeas" component={OutfitIdeas} />
       <Drawer.Screen name="FavoriteOutfits" component={FavoriteOutfits} />
       <Drawer.Screen name="TransactionsHistory" component={TransactionsHistory} />
+      <Drawer.Screen name="EditProfile" component={EditProfile} />
     </Drawer.Navigator>
   );
 };

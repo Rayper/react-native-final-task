@@ -30,7 +30,7 @@ export const palette = {
   darkPink: '#FF0058',
   violet: '#442CB9',
   lightBlue: '#BFEAF5',
-  grey: '#F4F0EF',
+  grey: '#DCDCDC',
   darkGrey: '#808080',
   lightGrey: '#FAFAFA',
 };
@@ -59,6 +59,7 @@ export const theme = createTheme({
     darkPurple: palette.purpleDark,
     purplePrimary: palette.purplePrimary,
     purpleLight: palette.purpleLight,
+    background2: '#F4F0EF',
     danger: '#FF0058',
     primary: '#2CB9B0',
     primaryLight: '#E7F9F7',

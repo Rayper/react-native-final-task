@@ -1,25 +1,24 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { RectButton, RectButtonProperties } from 'react-native-gesture-handler';
 
-import { useTheme } from '@shopify/restyle';
-
-import { Theme, Text } from './Theme';
+import { Text, useTheme } from './Theme';
 
 interface ButtonProps {
   variant: 'default' | 'primary';
   label: string;
   onPress: () => void;
+  style?: RectButtonProperties['style'];
 }
 
-const Button = ({ variant, label, onPress }: ButtonProps) => {
-  const theme = useTheme<Theme>();
+const Button = ({ variant, label, onPress, style }: ButtonProps) => {
+  const theme = useTheme();
   // validasi untuk bg color dan color
   const backgroundColor = variant === 'primary' ? theme.colors.primary : theme.colors.grey;
   const color = variant === 'primary' ? theme.colors.white : theme.colors.secondary;
 
   return (
-    <RectButton style={[styles.container, { backgroundColor }]} {...{ onPress }}>
+    <RectButton style={[styles.container, style, { backgroundColor }]} {...{ onPress }}>
       <Text variant="button" style={{ color }}>
         {label}
       </Text>

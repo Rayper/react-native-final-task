@@ -24,6 +24,7 @@ export type HomeRoutes = {
   OutfitIdeas: undefined;
   FavoriteOutfits: undefined;
   TransactionsHistory: undefined;
+  EditProfile: undefined;
 };
 
 export type AuthRoutes = {
