@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Dimensions } from 'react-native';
+import { Transition, Transitioning, TransitioningView } from 'react-native-reanimated';
+
 
 import { Box, useTheme } from '../../../components';
 import { Theme } from '../../../components/Theme';
@@ -10,6 +12,12 @@ import moment from 'moment';
 
 const aspecRatio = 195 / 305;
 const { width: wWidth } = Dimensions.get('window');
+
+const transition = (
+  <Transition.Together>
+    <Transition.In type="slide-bottom" durationMs={650} interpolation="easeInOut" />
+  </Transition.Together>
+);
 
 export interface DataPoint {
   date: number;
@@ -25,6 +33,8 @@ interface GraphProps {
 }
 
 const Graph = ({ data, startDate, numberOfMonths }: GraphProps) => {
+  const ref = useRef<TransitioningView>(null);
+
   const theme = useTheme();
 
   const canvasWidth = wWidth - theme.spacing.m * 2;
@@ -33,29 +43,37 @@ const Graph = ({ data, startDate, numberOfMonths }: GraphProps) => {
   const width = canvasWidth - theme.spacing[MARGIN];
   const height = canvasHeight - theme.spacing[MARGIN];
 
+  const step = width / numberOfMonths;
+
   const values = data.map((p) => p.value);
-  const dates = data.map((p) => p.date);
 
   const minY = Math.min(...values);
   const maxY = Math.max(...values);
-  const step = width / numberOfMonths;
+
+  useLayoutEffect(() => {
+    ref.current?.animateNextTransition();
+  }, []);
 
   return (
-    <Box marginTop="xl" paddingBottom={MARGIN} paddingLeft={MARGIN}>
+    <Box marginTop="xl" paddingBottom={MARGIN} paddingLeft={MARGIN} flexDirection="row">
       <Underlay
-        dates={dates}
         minY={minY}
         maxY={maxY}
         startDate={startDate}
         numberOfMonths={numberOfMonths}
         step={step}
       />
-      <Box width={width} height={height}>
+
+      <Transitioning.View
+        style={{ width, height, overflow: 'hidden' }}
+        ref={ref}
+        transition={transition}
+      >
         {data.map((point) => {
           const i = Math.round(
             moment.duration(moment(point.date).diff(moment(startDate))).asMonths(),
           );
-          // jika data-nya gak ada
+
           if (point.value === 0) {
             return null;
           }
@@ -92,7 +110,7 @@ const Graph = ({ data, startDate, numberOfMonths }: GraphProps) => {
             </Box>
           );
         })}
-      </Box>
+      </Transitioning.View>
     </Box>
   );
 };

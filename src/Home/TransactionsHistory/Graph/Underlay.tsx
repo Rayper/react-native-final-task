@@ -9,7 +9,6 @@ import { lerp } from './Scale';
 import moment from 'moment';
 
 interface UnderlayProps {
-  dates: number[];
   minY: number;
   maxY: number;
   startDate: number;
@@ -21,7 +20,7 @@ export const MARGIN = 'xl';
 const ROW_HEIGHT = 16;
 // const formatter = (date: Date) => format(date, 'MMM');
 
-const Underlay = ({ dates, minY, maxY, startDate, numberOfMonths, step }: UnderlayProps) => {
+const Underlay = ({ minY, maxY, startDate, numberOfMonths, step }: UnderlayProps) => {
   const minDate = moment(startDate);
   const theme = useTheme();
 
@@ -35,7 +34,7 @@ const Underlay = ({ dates, minY, maxY, startDate, numberOfMonths, step }: Underl
               flexDirection="row"
               alignItems="center"
               height={ROW_HEIGHT}
-              style={{ zIndex: 999, top: t === 0 ? 8 : t === 1 ? -8 : 0 }}
+              style={{ top: t === 0 ? ROW_HEIGHT / 2 : t === 1 ? -ROW_HEIGHT / 2 : 0 }}
             >
               <Box width={theme.spacing[MARGIN]} paddingRight="s">
                 <Text color="darkGrey" textAlign="right">

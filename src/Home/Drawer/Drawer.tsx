@@ -46,8 +46,9 @@ const items: DrawerItemProps[] = [
     icon: 'log-out',
     label: 'Logout',
     onPress: (
-      navigation, //@ts-ignore
+      navigation, 
     ) =>
+      //@ts-ignore
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
