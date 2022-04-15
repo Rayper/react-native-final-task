@@ -112,8 +112,8 @@ export const theme = createTheme({
     },
     body: {
       fontSize: 16,
-      lineHeight: 25,
-      fontFamily: 'SF-Pro-Display-Semibold',
+      lineHeight: 24,
+      fontFamily: 'SF-Pro-Display-Regular',
       color: 'text',
     },
     button: {
