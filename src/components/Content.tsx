@@ -13,23 +13,23 @@ const height = (100 * width) / viewBox.width;
 
 const d = 'M 0 0 H 375 A 50 50 0 0 1 325 50 H 50 A 0 50 0 0 0 0 100';
 
-interface ContentFooterProp {
+interface ContentProp {
   children: React.ReactNode;
 }
 
-const ContentFooter = ({ children }: ContentFooterProp) => {
+const Content = ({ children }: ContentProp) => {
   const theme = useTheme();
 
   return (
     <>
       <View style={styles.background}>
-        <Image 
-            source={require("../../assets/images/patterns/purpleBlue.jpg")}
-            style={styles.image}
+        <Image
+          source={require('../../assets/images/patterns/purpleBlue.jpg')}
+          style={styles.image}
         />
-        <Image 
-            source={require("../../assets/images/patterns/purpleBlue_reverse.jpg")}
-            style={styles.image}
+        <Image
+          source={require('../../assets/images/patterns/purpleBlue_reverse.jpg')}
+          style={styles.image}
         />
       </View>
       {children}
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContentFooter;
+export default Content;

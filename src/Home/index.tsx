@@ -9,6 +9,7 @@ import FavoriteOutfits from './FavoriteOutfits';
 import OutfitIdeas from './OutfitIdeas';
 import TransactionsHistory from './TransactionsHistory';
 import Settings from './Settings';
+import Cart from './Cart';
 
 export { assets } from './Drawer';
 
@@ -30,6 +31,7 @@ export const HomeNavigator = () => {
       <Drawer.Screen name="TransactionsHistory" component={TransactionsHistory} />
       <Drawer.Screen name="EditProfile" component={EditProfile} />
       <Drawer.Screen name="Settings" component={Settings} />
+      <Drawer.Screen name="Cart" component={Cart} />
     </Drawer.Navigator>
   );
 };

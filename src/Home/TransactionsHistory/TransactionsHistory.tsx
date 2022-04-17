@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet } from 'react-native';
 
-import { Box, Header, makeStyles, Text } from '../../components';
+import { Box, Header, makeStyles, ScrollableContent, Text } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
 import { Theme } from '../../components/Theme';
 
@@ -59,39 +59,44 @@ const TransactionsHistory = ({ navigation }: HomeNavigationProps<'TransactionsHi
   const styles = useStyles();
 
   return (
-    <Box flex={1} backgroundColor="white">
-      <Header
-        tittle="Transactions History"
-        left={{ icon: 'menu', onPress: () => navigation.openDrawer() }}
-        right={{ icon: 'share', onPress: () => true }}
-      />
-      <Box padding="m" flex={1}>
-        <Box flexDirection="row" justifyContent="space-between" alignItems="flex-end">
-          <Box>
-            <Text variant="Header" color="secondary" opacity={0.3}>
-              TOTAL SPENT
-            </Text>
-            <Text variant="title1">1219,48 IDR</Text>
-          </Box>
-          <Box backgroundColor="primaryLight" borderRadius="l" padding="m">
-            <Text color="primary">All Time</Text>
-          </Box>
-        </Box>
-        <Graph data={data} startDate={startDate} numberOfMonths={numberOfMonths} />
-        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollView}>
-          {data.map((transaction) => (
-            <Transaction key={transaction.id} transaction={transaction} />
-          ))}
-        </ScrollView>
-      </Box>
-      <TopCurve {...{ footerHeight }} />
-      <Box position="absolute" left={0} right={0} bottom={0} height={footerHeight}>
-        <Image
-          source={require('../../../assets/images/patterns/drawer.jpg')}
-          style={styles.footer}
+    <ScrollableContent>
+      <Box flex={1} backgroundColor="white">
+        <Header
+          tittle="Transactions History"
+          left={{ icon: 'menu', onPress: () => navigation.openDrawer() }}
+          right={{ icon: 'share', onPress: () => true }}
         />
+        <Box padding="m" flex={1}>
+          <Box flexDirection="row" justifyContent="space-between" alignItems="flex-end">
+            <Box>
+              <Text variant="Header" color="secondary" opacity={0.3}>
+                TOTAL SPENT
+              </Text>
+              <Text variant="title1">1219,48 IDR</Text>
+            </Box>
+            <Box backgroundColor="primaryLight" borderRadius="l" padding="m">
+              <Text color="primary">All Time</Text>
+            </Box>
+          </Box>
+          <Graph data={data} startDate={startDate} numberOfMonths={numberOfMonths} />
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.scrollView}
+          >
+            {data.map((transaction) => (
+              <Transaction key={transaction.id} transaction={transaction} />
+            ))}
+          </ScrollView>
+        </Box>
+        <TopCurve {...{ footerHeight }} />
+        <Box position="absolute" left={0} right={0} bottom={0} height={footerHeight}>
+          <Image
+            source={require('../../../assets/images/patterns/drawer.jpg')}
+            style={styles.footer}
+          />
+        </Box>
       </Box>
-    </Box>
+    </ScrollableContent>
   );
 };
 

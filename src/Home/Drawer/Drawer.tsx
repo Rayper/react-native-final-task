@@ -75,7 +75,8 @@ const Drawer = () => {
           <Header
             tittle="My Profile"
             left={{ icon: 'x', onPress: () => navigation.dispatch(DrawerActions.closeDrawer()) }}
-            right={{ icon: 'shopping-bag', onPress: () => true }}
+            //@ts-ignore
+            right={{ icon: 'shopping-bag', onPress: () => navigation.navigate('Cart') }}
             dark={true}
           />
         </Box>

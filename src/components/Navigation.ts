@@ -26,6 +26,7 @@ export type HomeRoutes = {
   TransactionsHistory: undefined;
   EditProfile: undefined;
   Settings: undefined;
+  Cart: undefined;
 };
 
 export type AuthRoutes = {
