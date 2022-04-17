@@ -34,8 +34,8 @@ const CartContainer = ({ children }: CartContainerProps) => {
       translateY.value = clamp(ctx.y + translationY, snapPoints[0], snapPoints[1]);
     },
     onEnd: ({ velocityY }) => {
-      const dest = snapPoint(translateY.value, velocityY, [-(height - minHeight), 0]);
-      translateY.value = withSpring(dest, { overshootClamping: true });
+      const destination = snapPoint(translateY.value, velocityY, [-(height - minHeight), 0]);
+      translateY.value = withSpring(destination, { overshootClamping: true });
     },
   });
 
@@ -58,6 +58,7 @@ const CartContainer = ({ children }: CartContainerProps) => {
               right: 0,
               height,
               backgroundColor: 'white',
+              overflow: 'hidden',
               borderBottomRightRadius: theme.borderRadii.xl,
               borderBottomLeftRadius: theme.borderRadii.xl,
             },
@@ -80,8 +81,8 @@ const CartContainer = ({ children }: CartContainerProps) => {
               style={{
                 height: 5 * aspectRatio,
                 width: 60 * aspectRatio,
-                marginBottom: theme.spacing.m,
                 borderRadius: 2.5 * aspectRatio,
+                marginBottom: theme.spacing.m,
                 backgroundColor: theme.colors.white,
               }}
             />
