@@ -1,67 +1,54 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
-import Animated, {
-  useAnimatedGestureHandler,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
-import { snapPoint, clamp } from 'react-native-redash';
+import { StyleSheet, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
+import Svg, { Path } from 'react-native-svg';
 
-import { Box, useTheme } from '../../components';
+import { Box, Header, useTheme, Text } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
+import { aspectRatio, width } from '../../components/Theme';
 
-const { width } = Dimensions.get('window');
-const height = (682 * width) / 375;
-const minHeight = (228 * width) / 375;
-const snapPoints = [-(height - minHeight), 0];
+import CartContainer from './CartContainer';
+import Item from './Item';
+
+const height = 100 * aspectRatio;
+
+const d = 'M 0 0 A 50 50 0 0 0 50 50 H 325 A 50 50 0 0 1 375 100 V 0 0 Z';
 
 const Cart = ({ navigation }: HomeNavigationProps<'Cart'>) => {
   const theme = useTheme();
-  const translateY = useSharedValue(0); //@ts-ignore
-  const onGestureEvent = useAnimatedGestureHandler<{ y?: number }>({
-    onStart: (event, ctx) => {
-      //@ts-ignore
-      ctx.y = translateY.value;
-    },
-    onActive: ({ translationY }, ctx) => {
-      //@ts-ignore
-      translateY.value = clamp(ctx.y + translationY, snapPoints[0], snapPoints[1]);
-    },
-    onEnd: ({ velocityY }) => {
-      const dest = snapPoint(translateY.value, velocityY, [-(height - minHeight), 0]);
-      translateY.value = withSpring(dest, { overshootClamping: true });
-    },
-  });
-
-  const style = useAnimatedStyle(() => ({
-    transform: [{ translateY: translateY.value }],
-  }));
 
   return (
-    <Box flex={1} backgroundColor="secondary">
-      <PanGestureHandler
-        //@ts-ignore
-        onGestureEvent={onGestureEvent}
+    <CartContainer>
+      <Box>
+        <Box backgroundColor="primary">
+          <Header
+            dark
+            tittle="Shopping Cart"
+            left={{ icon: 'arrow-left', onPress: () => navigation.goBack() }}
+          />
+        </Box>
+        <Box style={{ position: 'absolute', bottom: -height, left: 0, right: 0, height }}>
+          <Svg style={StyleSheet.absoluteFill} viewBox="0 0 375 100">
+            <Path fill={theme.colors.primary} d={d} />
+          </Svg>
+          <Text variant="title2" textAlign="center" color="white">
+            3 Items Added
+          </Text>
+        </Box>
+      </Box>
+      <ScrollView
+        style={{
+          borderBottomRightRadius: theme.borderRadii.xl,
+          borderBottomLeftRadius: theme.borderRadii.xl,
+        }}
+        showsVerticalScrollIndicator={false}
       >
-        <Animated.View
-          style={[
-            {
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              height,
-              backgroundColor: 'white',
-              borderBottomRightRadius: theme.borderRadii.xl,
-              borderBottomLeftRadius: theme.borderRadii.xl,
-            },
-            style,
-          ]}
-        />
-      </PanGestureHandler>
-    </Box>
+        <Item />
+        <Item />
+        <Item />
+        <Item />
+      </ScrollView>
+    </CartContainer>
   );
 };
 

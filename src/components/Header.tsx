@@ -21,7 +21,6 @@ interface HeaderProps {
 const Header = ({ left, tittle, right, dark }: HeaderProps) => {
   const issets = useSafeAreaInsets();
   const color = dark ? 'white' : 'secondary';
-  const backgroundColor = dark ? 'secondary' : 'white';
 
   return (
     <Box
@@ -36,7 +35,7 @@ const Header = ({ left, tittle, right, dark }: HeaderProps) => {
         size={44}
         name={left.icon}
         onPress={left.onPress}
-        {...{ color, backgroundColor }}
+        {...{ color }}
       />
       <Text variant="Header" {...{ color }}>
         {tittle.toUpperCase()}
@@ -47,7 +46,7 @@ const Header = ({ left, tittle, right, dark }: HeaderProps) => {
           size={44}
           name={right.icon}
           onPress={right.onPress}
-          {...{ color, backgroundColor }}
+          {...{ color }}
         />
       ) : (
         <View style={{ width: 44 }} />

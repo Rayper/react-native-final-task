@@ -1,4 +1,4 @@
-import { ImageStyle, TextStyle, ViewStyle } from 'react-native';
+import { ImageStyle, TextStyle, ViewStyle, Dimensions } from 'react-native';
 
 import {
   createBox,
@@ -8,6 +8,9 @@ import {
   ThemeProvider as ReStyleThemeProvider,
 } from '@shopify/restyle';
 import { ReactNode } from 'react';
+
+export const { width } = Dimensions.get('window');
+export const aspectRatio = width / 375;
 
 export const palette = {
   purpleLight: '#8C6FF7',

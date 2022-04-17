@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React from 'react';
 import { Dimensions, View } from 'react-native';
 import Animated, { divide, multiply, sub } from 'react-native-reanimated';
 
