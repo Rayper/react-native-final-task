@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { sub } from 'react-native-reanimated';
-import { useTransition } from 'react-native-redash';
+import { useTiming } from 'react-native-redash';
 
 import { Box, Header } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
@@ -35,7 +34,7 @@ export const OutfitIdeas = ({ navigation }: HomeNavigationProps<'OutfitIdeas'>) 
   // start dari 0
   const [currentIndex, setCurrentIndex] = useState(0);
   // index untuk animation
-  const aIndex = useTransition(currentIndex);
+  const aIndex = useTiming(currentIndex);
 
   return (
     <Box flex={1} backgroundColor="white">
@@ -54,10 +53,12 @@ export const OutfitIdeas = ({ navigation }: HomeNavigationProps<'OutfitIdeas'>) 
               <Card
                 key={index}
                 // posisi card yang di swipe akan ke belakang dan card yang dibelakangnya akan maju
-                position={sub(index * step, aIndex)}
+                index={index}
+                aIndex={aIndex}
+                step={step}
                 // function untuk swipe
                 onSwipe={() => setCurrentIndex((prev) => prev + step)}
-                {...{ source, step }}
+                {...{ source }}
               />
             ),
         )}

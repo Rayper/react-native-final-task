@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, View } from 'react-native';
-import Animated, { divide, multiply, sub } from 'react-native-reanimated';
+import Animated, { withTiming, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 
 import { Box, useTheme } from '../../../components';
 import { Theme } from '../../../components/Theme';
@@ -8,8 +8,7 @@ import { Theme } from '../../../components/Theme';
 import Underlay, { MARGIN } from './Underlay';
 import { lerp } from './Scale';
 import moment from 'moment';
-import { useIsFocused } from '@react-navigation/native';
-import { useTransition } from 'react-native-redash';
+import { useFocusEffect } from '@react-navigation/native';
 
 const aspecRatio = 195 / 305;
 const { width: wWidth } = Dimensions.get('window');
@@ -31,9 +30,13 @@ interface GraphProps {
 const Graph = ({ data, startDate, numberOfMonths }: GraphProps) => {
   const theme = useTheme();
 
-  const isFocused = useIsFocused();
+  const transition = useSharedValue(0);
 
-  const transition = useTransition(isFocused, { duration: 650 });
+  // untuk ngetrigger animasinya
+  useFocusEffect(() => {
+    transition.value = withTiming(1, { duration: 750 });
+    return () => (transition.value = 0);
+  });
 
   const canvasWidth = wWidth - theme.spacing.m * 2;
   const canvasHeight = canvasWidth * aspecRatio;
@@ -69,8 +72,17 @@ const Graph = ({ data, startDate, numberOfMonths }: GraphProps) => {
           }
 
           const totalHeight = lerp(0, height, point.value / maxY);
-          const currenHeight = multiply(totalHeight, transition);
-          const translateY = divide(sub(totalHeight, currenHeight), 2);
+          // convert ini dengan AnimatedStyle
+          // const currenHeight = multiply(totalHeight, transition);
+          // const translateY = divide(sub(totalHeight, currenHeight), 2);
+          // style={{ transform: [{ translateY }, { scaleY: transition }] }}
+          const style = useAnimatedStyle(() => {
+            const currentHeight = totalHeight * transition.value;
+            const translateY = (totalHeight - currentHeight) / 2;
+            return {
+              transform: [{ translateY }, { scaleY: transition.value }],
+            };
+          });
 
           return (
             <AnimatedBox
@@ -80,7 +92,7 @@ const Graph = ({ data, startDate, numberOfMonths }: GraphProps) => {
               bottom={0}
               width={step}
               height={lerp(0, height, point.value / maxY)}
-              style={{ transform: [{ translateY }, { scaleY: transition }] }}
+              style={style}
             >
               <Box
                 backgroundColor={point.color}

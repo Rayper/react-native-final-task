@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Dimensions } from 'react-native';
-import { Box, RoundedIcon, BorderlessTap } from '../../components';
+import { BorderlessButton } from 'react-native-gesture-handler';
+import { Box, RoundedIcon } from '../../components';
 
 const { width: wWidth } = Dimensions.get('window');
 
@@ -18,7 +19,7 @@ const Outfit = ({ outfit, width }: OutfitProps) => {
   const [selected, setSelected] = useState(false);
 
   return (
-    <BorderlessTap
+    <BorderlessButton
       onPress={() => {
         setSelected((prev) => !prev);
         // ketika outfit di klik maka selected tersebut akan menjadi true
@@ -47,7 +48,7 @@ const Outfit = ({ outfit, width }: OutfitProps) => {
           />
         )}
       </Box>
-    </BorderlessTap>
+    </BorderlessButton>
   );
 };
 

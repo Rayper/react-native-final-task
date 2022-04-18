@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 import { BoxProps } from '@shopify/restyle';
 
-import { BorderlessTap, Box } from '../../components';
+import { Box } from '../../components';
 import { Theme } from '../../components/Theme';
 
 export interface CardLayoutProps {
@@ -17,7 +17,7 @@ const masterCardLogo = require('../../../assets/images/mastercard.png');
 
 const CardLayout = ({ onPress, children, backgroundColor }: CardLayoutProps) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <BorderlessButton onPress={onPress}>
       <Box
         width={120}
         height={160}
@@ -28,7 +28,7 @@ const CardLayout = ({ onPress, children, backgroundColor }: CardLayoutProps) => 
       >
         {children}
       </Box>
-    </TouchableOpacity>
+    </BorderlessButton>
   );
 };
 

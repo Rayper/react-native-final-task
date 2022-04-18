@@ -10,6 +10,11 @@ const categories = [
     color: '#FFE8E9',
   },
   {
+    id: 'boys',
+    title: 'Boys',
+    color: '#0C0D34',
+  },
+  {
     id: 'summer',
     title: 'Summer',
     color: '#F1E0FF',

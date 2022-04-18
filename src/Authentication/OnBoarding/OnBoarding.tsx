@@ -188,9 +188,8 @@ const Onboarding = ({ navigation }: AuthNavigationProps<'Onboarding'>) => {
                       navigation.navigate('Welcome');
                     } else {
                       // logic untuk pindah page ketika dipress button-nya
-                      scroll.current
-                        ?.getNode()
-                        .scrollTo({ x: width * (index + 1), animated: true });
+                      scroll.current //@ts-ignore
+                        ?.scrollTo({ x: width * (index + 1), animated: true });
                     }
                   }}
                   {...{ subtitle, description, last }}
