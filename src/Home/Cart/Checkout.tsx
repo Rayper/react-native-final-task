@@ -94,7 +94,7 @@ const Checkout = ({ minHeight }: CheckoutProps) => {
           <Button
             label="Swipe to pay $201.94"
             variant="primary"
-            onPress={() => alert('pay now?')}
+            onPress={() => alert('Pay now?')}
           />
         </Box>
       </Box>

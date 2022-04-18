@@ -2,6 +2,7 @@ import React, { ReactNode, useCallback, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
+  runOnJS,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -55,7 +56,9 @@ const SwipeableRow = ({ children, onDelete, height: defaultHeight }: SwipeableRo
         },
         () => {
           if (destination === finalDestination) {
-            height.value = withTiming(0, { duration: 250 }, () => deleteItem());
+            height.value = withTiming(0, { duration: 250 });
+            runOnJS(deleteItem)();
+            translateX.value = 0;
           }
         },
       );
@@ -86,7 +89,9 @@ const SwipeableRow = ({ children, onDelete, height: defaultHeight }: SwipeableRo
           end={[1, 0.5]}
         />
         <Box padding="m" width={editWidth} justifyContent="space-evenly" flex={1}>
-          <Text variant="title3">Remove</Text>
+          <Text variant="title3" style={{ color: 'white' }}>
+            Remove
+          </Text>
         </Box>
       </Animated.View>
 
@@ -110,6 +115,7 @@ const SwipeableRow = ({ children, onDelete, height: defaultHeight }: SwipeableRo
             size={24}
             color="white"
             backgroundColor="primary"
+            iconRatio={0.5}
           />
 
           <RoundedIconButton
@@ -118,6 +124,7 @@ const SwipeableRow = ({ children, onDelete, height: defaultHeight }: SwipeableRo
             size={24}
             color="white"
             backgroundColor="danger"
+            iconRatio={0.5}
           />
         </Box>
       </Animated.View>

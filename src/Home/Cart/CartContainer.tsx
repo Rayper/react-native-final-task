@@ -85,7 +85,7 @@ const CartContainer = ({ children, CheckoutComponent }: CartContainerProps) => {
                 width: 60 * aspectRatio,
                 borderRadius: 2.5 * aspectRatio,
                 marginBottom: theme.spacing.m,
-                backgroundColor: theme.colors.white,
+                backgroundColor: theme.colors.secondary,
               }}
             />
           </View>
