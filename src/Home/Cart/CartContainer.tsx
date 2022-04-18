@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Dimensions, View } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
@@ -13,15 +13,16 @@ import { Box, useTheme } from '../../components';
 
 const { width } = Dimensions.get('window');
 const aspectRatio = width / 375;
-const height = (682 * aspectRatio) / 1.125;
+const height = (730 * aspectRatio) / 1.125;
 const minHeight = 228 * aspectRatio;
 const snapPoints = [-(height - minHeight), 0];
 
 interface CartContainerProps {
-  children: React.ReactNode;
+  children: ReactNode;
+  CheckoutComponent: FC<{ minHeight: number }>;
 }
 
-const CartContainer = ({ children }: CartContainerProps) => {
+const CartContainer = ({ children, CheckoutComponent }: CartContainerProps) => {
   const theme = useTheme();
   const translateY = useSharedValue(0); //@ts-ignore
   const onGestureEvent = useAnimatedGestureHandler<{ y?: number }>({
@@ -44,7 +45,8 @@ const CartContainer = ({ children }: CartContainerProps) => {
   }));
 
   return (
-    <Box flex={1} backgroundColor="secondary">
+    <Box flex={1}>
+      <CheckoutComponent minHeight={minHeight} />
       <PanGestureHandler
         //@ts-ignore
         onGestureEvent={onGestureEvent}
