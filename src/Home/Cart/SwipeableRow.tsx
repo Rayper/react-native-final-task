@@ -131,6 +131,7 @@ const SwipeableRow = ({ children, onDelete, height: defaultHeight }: SwipeableRo
       <PanGestureHandler
         //@ts-ignore
         onGestureEvent={onGestureEvent}
+        activeOffsetY={0}
       >
         <Animated.View style={style}>{children}</Animated.View>
       </PanGestureHandler>

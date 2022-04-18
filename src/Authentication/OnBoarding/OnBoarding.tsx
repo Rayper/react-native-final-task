@@ -1,7 +1,14 @@
 import React, { useRef } from 'react';
 import { Dimensions, StyleSheet, View, Image } from 'react-native';
-import Animated, { divide, Extrapolate, interpolate, multiply } from 'react-native-reanimated';
-import { interpolateColor, onScrollEvent, useValue } from 'react-native-redash';
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+} from 'react-native-reanimated';
+import { interpolateColor } from 'react-native-redash';
 
 import Slide, { SLIDE_HEIGHT } from './Slide';
 import Subslide from './Subslide';
@@ -70,32 +77,55 @@ const Onboarding = ({ navigation }: AuthNavigationProps<'Onboarding'>) => {
 
   const scroll = useRef<Animated.ScrollView>(null);
 
-  const x = useValue(0);
+  const x = useSharedValue(0);
 
-  const onScroll = onScrollEvent({ x });
-
-  const backgroundColor = interpolateColor(x, {
-    // loop slides-nya disini
-    inputRange: slides.map((_, i) => i * width),
-    outputRange: slides.map((slide) => slide.color),
+  const onScroll = useAnimatedScrollHandler({
+    //@ts-ignore
+    onScroll: ({ contentOffset }) => {
+      x.value = contentOffset.x;
+    },
   });
+
+  const backgroundColor = useDerivedValue(() =>
+    interpolateColor(
+      x.value,
+      slides.map((_, i) => i * width),
+      slides.map((slide) => slide.color),
+    ),
+  );
+
+  const slider = useAnimatedStyle(() => ({
+    backgroundColor: backgroundColor.value,
+  }));
+
+  const background = useAnimatedStyle(() => ({
+    backgroundColor: backgroundColor.value,
+  }));
+
+  const currentIndex = useDerivedValue(() => x.value / width);
+  const footerStyle = useAnimatedStyle(() => ({
+    transform: [{ translateX: -x.value }],
+  }));
 
   return (
     <View style={styles.container}>
       <Animated.View
         //@ts-ignore
-        style={[styles.slider, { backgroundColor }]}
+        style={[styles.slider, slider]}
       >
         {slides.map(({ picture }, index) => {
           // create untuk kasi tau lagi di posisi image mana
-          const opacity = interpolate(x, {
-            inputRange: [(index - 0.5) * width, index * width, (index + 0.5) * width],
-            outputRange: [0, 1, 0],
-            extrapolate: Extrapolate.CLAMP,
-          });
+          const style = useAnimatedStyle(() => ({
+            opacity: interpolate(
+              x.value,
+              [(index - 0.5) * width, index * width, (index + 0.5) * width],
+              [0, 1, 0],
+              Extrapolate.CLAMP,
+            ),
+          }));
 
           return (
-            <Animated.View style={[styles.underlay, { opacity }]} key={index}>
+            <Animated.View style={[styles.underlay, style]} key={index}>
               <Image
                 source={picture.src}
                 style={{
@@ -114,8 +144,8 @@ const Onboarding = ({ navigation }: AuthNavigationProps<'Onboarding'>) => {
           decelerationRate="fast"
           showsHorizontalScrollIndicator={false}
           bounces={false}
-          scrollEventThrottle={1}
-          {...{ onScroll }}
+          scrollEventThrottle={16}
+          onScroll={onScroll}
         >
           {slides.map(({ title, picture }, index) => (
             // jika indexnya bukan 0
@@ -125,26 +155,25 @@ const Onboarding = ({ navigation }: AuthNavigationProps<'Onboarding'>) => {
       </Animated.View>
 
       <View style={styles.footer}>
-        <Animated.View
-          //@ts-ignore
-          style={{ ...StyleSheet.absoluteFillObject, backgroundColor }}
-        />
-
+        <Animated.View style={[StyleSheet.absoluteFill, background]} />
         <View style={styles.footerContent}>
           <View style={styles.pagination}>
             {slides.map((_, index) => (
-              <Dot key={index} currentIndex={divide(x, width)} {...{ index, x }} />
+              //@ts-ignore
+              <Dot key={index} currentIndex={currentIndex} {...{ index, x }} />
             ))}
           </View>
 
           <Animated.View
-            style={{
-              // translateX: multiply(x, -1) => dapetin datanya satu satu ber subtitle
-              flex: 1,
-              width: width * slides.length,
-              transform: [{ translateX: multiply(x, -1) }],
-              flexDirection: 'row',
-            }}
+            style={[
+              {
+                // translateX: multiply(x, -1) => dapetin datanya satu satu ber subtitle
+                flex: 1,
+                width: width * slides.length,
+                flexDirection: 'row',
+              },
+              footerStyle,
+            ]}
           >
             {slides.map(({ subtitle, description }, index) => {
               const last = index === slides.length - 1;
