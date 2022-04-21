@@ -18,19 +18,23 @@ import * as Yup from 'yup';
 
 const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
   const SignUpSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email format').required('This field is required'),
+    firstName: Yup.string().required('First name field is required'),
+    lastName: Yup.string().required('Last name field is required'),
+    email: Yup.string().email('Invalid email format').required('Email field is required'),
     password: Yup.string()
-      .required('This field is required')
+      .required('Password field is required')
       .min(4, 'Password too Short!')
       .max(50, 'Password too long!'),
     confirmpassword: Yup.string()
-      .required('This field is required')
+      .required('Confirm Password field is required')
       .equals([Yup.ref('password')], 'Password do not match'),
   });
 
   const { handleSubmit, control } = useForm({
     mode: 'all',
     defaultValues: {
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       confirmpassword: '',
@@ -38,9 +42,13 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
     resolver: yupResolver(SignUpSchema),
   });
 
-  const onSignPressed = (data: any) => {
+  const onSignUpPressed = (data: any) => {
     console.log(data);
     navigation.navigate('Login');
+  };
+
+  const onSubmit = (data: any) => {
+    console.log(data);
   };
 
   const footer = (
@@ -64,6 +72,56 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
         <Text variant="body" textAlign="center" marginBottom="l">
           Create your Account to access our features
         </Text>
+
+        <Controller
+          control={control}
+          name="firstName"
+          render={({ field: { value, onChange, onBlur }, fieldState: { error, isTouched } }) => (
+            <Box marginBottom="s">
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                icon="user"
+                placeholder="Enter your first name"
+                error={error}
+                touched={isTouched}
+                autoCompleteType="name"
+                autoCapitalize="none"
+                returnKeyType="next"
+                returnKeyLabel="next"
+              />
+              <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>
+                {error?.message}
+              </Text>
+            </Box>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="lastName"
+          render={({ field: { value, onChange, onBlur }, fieldState: { error, isTouched } }) => (
+            <Box marginBottom="s">
+              <TextInput
+                value={value}
+                onChangeText={onChange}
+                onBlur={onBlur}
+                icon="user"
+                placeholder="Enter your last name"
+                error={error}
+                touched={isTouched}
+                autoCompleteType="name"
+                autoCapitalize="none"
+                returnKeyType="next"
+                returnKeyLabel="next"
+              />
+              <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>
+                {error?.message}
+              </Text>
+            </Box>
+          )}
+        />
 
         <Controller
           control={control}
@@ -110,7 +168,7 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
                 autoCapitalize="none"
                 returnKeyType="next"
                 returnKeyLabel="next"
-                onSubmitEditing={() => handleSubmit(onSignPressed)}
+                onSubmitEditing={() => handleSubmit(onSubmit)}
               />
               <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>
                 {error?.message}
@@ -138,7 +196,7 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
                 autoCapitalize="none"
                 returnKeyType="go"
                 returnKeyLabel="go"
-                onSubmitEditing={() => handleSubmit(onSignPressed)}
+                onSubmitEditing={() => handleSubmit(onSubmit)}
               />
               <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>
                 {error?.message}
@@ -148,7 +206,7 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
         />
 
         <Box alignItems="center" marginTop="m">
-          <Button variant="primary" onPress={handleSubmit(onSignPressed)} label="Sign Up" />
+          <Button variant="primary" onPress={handleSubmit(onSignUpPressed)} label="Sign Up" />
         </Box>
       </Box>
     </Container>
