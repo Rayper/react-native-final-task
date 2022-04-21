@@ -23,6 +23,8 @@
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
     "@shopify/restyle": "^2.0.0",
+    "@types/axios": "^0.14.0",
+    "axios": "^0.26.1",
     "date-fns": "^2.28.0",
     "eslint-plugin-import": "2.22.0",
     "expo": "^44.0.6",

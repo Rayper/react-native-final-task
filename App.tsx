@@ -5,10 +5,13 @@ import * as React from 'react';
 
 import { assets as authenticationAssets, AuthenticationNavigator } from './src/Authentication';
 import { LoadAssets } from './src/components';
-import { theme, ThemeProvider } from './src/components/Theme';
+import { ThemeProvider } from './src/components/Theme';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeNavigator, assets as HomeAssets } from './src/Home';
 import { AppRoutes } from './src/components/Navigation';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://192.168.1.13:8000/api/';
 
 const assets = [...authenticationAssets, ...HomeAssets];
 

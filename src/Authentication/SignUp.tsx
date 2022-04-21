@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { TextInput as RNTextInput } from 'react-native';
 
@@ -14,7 +14,19 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as Yup from 'yup';
 
+import axios from 'axios';
+
 // import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const BASE_URL = 'http://192.168.1.13:8000/api';
+
+interface SignUpForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmpassword: string;
+}
 
 const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
   const SignUpSchema = Yup.object().shape({
@@ -23,32 +35,32 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
     email: Yup.string().email('Invalid email format').required('Email field is required'),
     password: Yup.string()
       .required('Password field is required')
-      .min(4, 'Password too Short!')
+      .min(6, 'Password too Short!')
       .max(50, 'Password too long!'),
     confirmpassword: Yup.string()
       .required('Confirm Password field is required')
       .equals([Yup.ref('password')], 'Password do not match'),
   });
 
-  const { handleSubmit, control } = useForm({
-    mode: 'all',
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmpassword: '',
-    },
+  const { handleSubmit, control } = useForm<SignUpForm>({
     resolver: yupResolver(SignUpSchema),
   });
 
-  const onSignUpPressed = (data: any) => {
-    console.log(data);
-    navigation.navigate('Login');
-  };
+  const password = useRef<RNTextInput>(null);
+  const confirmpassword = useRef<RNTextInput>(null);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: SignUpForm) => {
+    let responseUser;
+    await axios
+      .post(`${BASE_URL}/auth/register`, data)
+      .then((result) => {
+        responseUser = result.data;
+        navigation.navigate('Login');
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
+    return responseUser;
   };
 
   const footer = (
@@ -58,9 +70,6 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
       onPress={() => navigation.navigate('Login')}
     />
   );
-
-  const password = useRef<RNTextInput>(null);
-  const confirmpassword = useRef<RNTextInput>(null);
 
   return (
     <Container {...{ footer }} pattern={4}>
@@ -206,7 +215,7 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
         />
 
         <Box alignItems="center" marginTop="m">
-          <Button variant="primary" onPress={handleSubmit(onSignUpPressed)} label="Sign Up" />
+          <Button variant="primary" onPress={handleSubmit(onSubmit)} label="Sign Up" />
         </Box>
       </Box>
     </Container>
