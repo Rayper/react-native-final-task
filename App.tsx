@@ -10,6 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeNavigator, assets as HomeAssets } from './src/Home';
 import { AppRoutes } from './src/components/Navigation';
 import axios from 'axios';
+import { AuthContextProvider } from './src/context/Authentication/AuthContext';
 
 axios.defaults.baseURL = 'http://192.168.1.13:8000/api/';
 
@@ -25,15 +26,19 @@ const fonts = {
 const AppStack = createStackNavigator<AppRoutes>();
 
 export default function App() {
+    
+
     return (
       <ThemeProvider>
         <LoadAssets {...{ fonts, assets }}>
-          <SafeAreaProvider>
-            <AppStack.Navigator screenOptions={{headerShown: false}}>
-              <AppStack.Screen name="Authentication" component={AuthenticationNavigator} />
-              <AppStack.Screen name="Home" component={HomeNavigator} />
-            </AppStack.Navigator>
-          </SafeAreaProvider>  
+          <AuthContextProvider>
+            <SafeAreaProvider>
+              <AppStack.Navigator screenOptions={{headerShown: false}}>
+                <AppStack.Screen name="Authentication" component={AuthenticationNavigator} />
+                <AppStack.Screen name="Home" component={HomeNavigator} />
+              </AppStack.Navigator>
+            </SafeAreaProvider>
+          </AuthContextProvider>  
         </LoadAssets>
       </ThemeProvider>
       

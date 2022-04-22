@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Box, Content, Header } from '../../components';
+import { Box, Header } from '../../components';
+import Content from '../../components/Content';
+
 import { HomeNavigationProps } from '../../components/Navigation';
 
 import Notification from './Notification';
