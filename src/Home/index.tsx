@@ -10,6 +10,7 @@ import OutfitIdeas from './OutfitIdeas';
 import TransactionsHistory from './TransactionsHistory';
 import Settings from './Settings';
 import Cart from './Cart';
+import UpdatePasswordSuccess from './EditProfile/UpdatePasswordSuccess';
 
 export { assets } from './Drawer';
 
@@ -32,6 +33,7 @@ export const HomeNavigator = () => {
       <Drawer.Screen name="EditProfile" component={EditProfile} />
       <Drawer.Screen name="Settings" component={Settings} />
       <Drawer.Screen name="Cart" component={Cart} />
+      <Drawer.Screen name="UpdatePasswordSuccess" component={UpdatePasswordSuccess} />
     </Drawer.Navigator>
   );
 };

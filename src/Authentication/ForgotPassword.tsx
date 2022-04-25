@@ -7,10 +7,10 @@ import * as Yup from 'yup';
 
 import Footer from '../components/Footer';
 import { Box, Container, Button, Text } from '../components';
-import { Routes, StackNavigationProps } from '../components/Navigation';
+import { AuthNavigationProps } from '../components/Navigation';
 import TextInput from '../components/Form/TextInput';
 
-const ForgotPassword = ({ navigation }: StackNavigationProps<Routes, 'ForgotPassword'>) => {
+const ForgotPassword = ({ navigation }: AuthNavigationProps<'ForgotPassword'>) => {
   const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Invalid email format'),
   });

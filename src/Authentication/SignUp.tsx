@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { ActivityIndicator, Image, TextInput as RNTextInput, View } from 'react-native';
+import { ActivityIndicator, Image, TextInput as RNTextInput } from 'react-native';
 
 import Footer from '../components/Footer';
 import { Box } from '../components/Theme';
@@ -15,6 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 
 import { AuthContext } from '../context/Authentication/AuthContext';
+import LoadingScreen from '../components/LoadingScreen';
 
 const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
   const password = useRef<RNTextInput>(null);
@@ -62,22 +63,10 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
     />
   );
 
-  const loadingLogo = require('../../assets/images/loadingLogo.png');
-
   return (
     <Container {...{ footer }} pattern={4}>
       {isLoading ? (
-        <Box style={{ marginTop: 150 }}>
-          <Box justifyContent="center" alignItems="center">
-            <Text textAlign="center" padding="s" variant="title1" style={{ color: '#160029' }}>
-              Please wait
-            </Text>
-            <Image source={loadingLogo} style={{ width: 30, height: 50 }} />
-          </Box>
-          <Box marginVertical="m">
-            <ActivityIndicator size="large" animating={true} color="#0C0D34" />
-          </Box>
-        </Box>
+        <LoadingScreen />
       ) : (
         <Box padding="l">
           <Text variant="title1" textAlign="center" marginBottom="l">
@@ -218,6 +207,9 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
               </Box>
             )}
           />
+          {signUpError ? (
+            <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>{signUpError}</Text>
+          ) : null}
 
           <Box alignItems="center" marginTop="m">
             <Button variant="primary" onPress={handleSubmit(onSubmit)} label="Sign Up" />

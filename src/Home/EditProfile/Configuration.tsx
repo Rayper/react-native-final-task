@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
-import { Box, Text } from '../../components';
+import { Box, Button, Text } from '../../components';
 import CheckBoxGroup from './CheckBoxGroup';
 import RoundedCheckBoxGroup from './RoundedCheckBoxGroup';
 
@@ -50,6 +50,10 @@ const Configuration = () => {
         />
         <Text variant="body">My preffered brands</Text>
         <CheckBoxGroup options={prefferedBrands} />
+      </Box>
+
+      <Box alignItems="center">
+        <Button variant="primary" onPress={() => alert('pressed')} label="Submit" />
       </Box>
     </ScrollView>
   );

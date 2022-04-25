@@ -1,9 +1,11 @@
 import { DrawerActions } from '@react-navigation/native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Dimensions } from 'react-native';
 
 import { Box, Header, Text, useTheme } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
+import { AuthContext } from '../../context/Authentication/AuthContext';
+import AuthenticationSettings from './AuthenticationSettings';
 
 import Configuration from './Configuration';
 import PersonalInfo from './PersonalInfo';
@@ -14,10 +16,12 @@ const { width } = Dimensions.get('window');
 const tabs = [
   { id: 'configuration', title: 'Configuration' },
   { id: 'info', title: 'Personal Info' },
+  { id: 'auth', title: 'Authentication' },
 ];
 
 const EditProfile = ({ navigation }: HomeNavigationProps<'EditProfile'>) => {
   const theme = useTheme();
+  const { user } = useContext(AuthContext);
 
   return (
     <Box flex={1} backgroundColor="white">
@@ -42,7 +46,7 @@ const EditProfile = ({ navigation }: HomeNavigationProps<'EditProfile'>) => {
         <Box
           position="absolute"
           left={width / 2 - 50}
-          top={-50}
+          top={-35}
           backgroundColor="userCircle"
           style={{ borderRadius: 50 }}
           width={100}
@@ -50,16 +54,17 @@ const EditProfile = ({ navigation }: HomeNavigationProps<'EditProfile'>) => {
         />
         <Box marginVertical="m" style={{ marginTop: 50 + theme.spacing.m }}>
           <Text variant="title1" textAlign="center">
-            Rayper
+            {user?.firstName} {user?.lastName}
           </Text>
           <Text variant="body" textAlign="center">
-            Rayper@gmail.com
+            {user?.email}
           </Text>
         </Box>
       </Box>
       <Tabs tabs={tabs}>
         <Configuration />
         <PersonalInfo />
+        <AuthenticationSettings />
       </Tabs>
     </Box>
   );

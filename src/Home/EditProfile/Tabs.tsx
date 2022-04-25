@@ -29,7 +29,7 @@ const Tabs = ({ tabs, children }: TabsProps) => {
   }));
 
   const dot = useAnimatedStyle(() => ({
-    transform: [{ translateX: mix(transition.value, width * 0.25, width * 0.75) }],
+    transform: [{ translateX: mix(transition.value, width * 0.15, width * 0.5) }],
   }));
 
   return (

@@ -26,7 +26,6 @@ const fonts = {
 const AppStack = createStackNavigator<AppRoutes>();
 
 export default function App() {
-    
 
     return (
       <ThemeProvider>

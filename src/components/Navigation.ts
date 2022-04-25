@@ -27,6 +27,7 @@ export type HomeRoutes = {
   EditProfile: undefined;
   Settings: undefined;
   Cart: undefined;
+  UpdatePasswordSuccess: undefined;
 };
 
 export type AuthRoutes = {
