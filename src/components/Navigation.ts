@@ -1,5 +1,5 @@
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { CompositeNavigationProp, ParamListBase, RouteProp } from '@react-navigation/native';
+import { CompositeNavigationProp, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface AuthNavigationProps<RouteName extends keyof AuthRoutes> {
@@ -28,6 +28,8 @@ export type HomeRoutes = {
   Settings: undefined;
   Cart: undefined;
   UpdatePasswordSuccess: undefined;
+  Catalog: undefined;
+  CatalogDetails: undefined;
 };
 
 export type AuthRoutes = {

@@ -62,6 +62,7 @@ export const theme = createTheme({
     darkPurple: palette.purpleDark,
     purplePrimary: palette.purplePrimary,
     purpleLight: palette.purpleLight,
+    darkBlue: palette.darkBlue,
     background2: '#F4F0EF',
     danger: '#FF0058',
     primary: '#2CB9B0',

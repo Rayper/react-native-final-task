@@ -22,11 +22,18 @@ const items: DrawerItemProps[] = [
     color: 'primary',
   },
   {
+    icon: 'shopping-bag',
+    label: 'Outfits Catalog',
+    screen: 'Catalog',
+    color: 'darkPink',
+  },
+  {
     icon: 'heart',
     label: 'Favorites Outfit',
     screen: 'FavoriteOutfits',
     color: 'drawer1',
   },
+
   {
     icon: 'user',
     label: ' Edit Profile',
@@ -102,7 +109,7 @@ const Drawer = () => {
           <Box
             position="absolute"
             left={DRAWER_WIDTH / 2 - 50}
-            top={-50}
+            top={-60}
             backgroundColor="userCircle"
             style={{ borderRadius: 50 }}
             width={100}
