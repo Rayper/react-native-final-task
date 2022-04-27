@@ -16,27 +16,27 @@ export interface HomeNavigationProps<RouteName extends keyof HomeRoutes> {
 }
 
 export type AppRoutes = {
-  Authentication: undefined;
-  Home: undefined;
+  Authentication: any;
+  Home: any;
 };
 
 export type HomeRoutes = {
-  OutfitIdeas: undefined;
-  FavoriteOutfits: undefined;
-  TransactionsHistory: undefined;
-  EditProfile: undefined;
-  Settings: undefined;
-  Cart: undefined;
-  UpdatePasswordSuccess: undefined;
-  Catalog: undefined;
-  CatalogDetails: undefined;
+  OutfitIdeas: any;
+  FavoriteOutfits: any;
+  TransactionsHistory: any;
+  EditProfile: any;
+  Settings: any;
+  Cart: any;
+  UpdatePasswordSuccess: any;
+  Catalog: any;
+  CatalogDetails: any;
 };
 
 export type AuthRoutes = {
-  Onboarding: undefined;
-  Welcome: undefined;
-  Login: undefined;
-  SignUp: undefined;
-  ForgotPassword: undefined;
-  PasswordChanged: undefined;
+  Onboarding: any;
+  Welcome: any;
+  Login: any;
+  SignUp: any;
+  ForgotPassword: any;
+  PasswordChanged: any;
 };

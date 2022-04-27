@@ -82,7 +82,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     setIsLoading(true);
     let responseUser;
     await axios
-      .put(`${BASE_URL}/auth/UpdatePersonalInfo`, { email, firstName, lastName })
+      .patch(`${BASE_URL}/users/updatePersonalInfo`, { email, firstName, lastName })
       .then((response) => {
         responseUser = response.data;
         setIsLoading(false);
@@ -99,7 +99,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     setIsLoading(true);
     let responseUser;
     await axios
-      .put(`${BASE_URL}/auth/updatePassword`, { password, confirmpassword })
+      .patch(`${BASE_URL}/users/updatePassword`, { password, confirmpassword })
       .then((response) => {
         responseUser = response.data;
         setIsLoading(false);

@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { Box, Header } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
+import { BASE_URL, ProductContext } from '../../context/Product/ProductContext';
+import { ProductModel } from './models/Product_model';
 
 import OutfitCatalog from './OutfitCatalog';
 
@@ -63,24 +66,45 @@ const defaultOutfitItems = [
   },
 ];
 
-const Catalog = ({ navigation }: HomeNavigationProps<'Catalog'>) => {
+const Catalog = ({ navigation, route }: HomeNavigationProps<'Catalog'>) => {
   const [outfitItems, _] = useState(defaultOutfitItems);
+  // const { outfits } = useContext(ProductContext);
+  const [outfits, setOutfits] = useState([]);
+
+  const getAllProducts = async () => {
+    let productData;
+    await axios
+      .get(`${BASE_URL}/product/findAllProducts`)
+      .then((response) => {
+        productData = response.data;
+        setOutfits(productData);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    (async () => await getAllProducts())()
+  }, []);
+
 
   return (
     <>
       <Header
         tittle="Outfit Catalog"
         left={{ icon: 'menu', onPress: () => navigation.openDrawer() }}
-        right={{ icon: 'shopping-bag', onPress: () => navigation.navigate('Cart') }}
+        right={{ icon: 'shopping-cart', onPress: () => navigation.navigate('Cart') }}
       />
       <Box flex={1} alignItems="center">
         <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
           <Box flexDirection="row" flexWrap="wrap">
-            {outfitItems.map((outfit) => (
+            {outfits.map((outfit: ProductModel) => (
               <OutfitCatalog
-                key={outfit.id}
+                key={outfit.productId}
                 outfit={outfit}
-                onPress={() => navigation.navigate('CatalogDetails')}
+                onPress={() => navigation.navigate('CatalogDetails', { Id: outfit.productId  })}
               />
             ))}
           </Box>
