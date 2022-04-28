@@ -1,16 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ScrollView } from 'react-native-gesture-handler';
-import { ActivityIndicator, Alert, Image } from 'react-native';
+import { Alert } from 'react-native';
 
 import { Box, Button, Text } from '../../components';
 import TextInput from '../../components/Form/TextInput';
 
-import CheckBoxGroup from './CheckBoxGroup';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { AuthContext } from '../../context/Authentication/AuthContext';
-import { loadingLogo } from '../../Authentication/SignUp';
 import LoadingScreen from '../../components/LoadingScreen';
 
 const genders = [

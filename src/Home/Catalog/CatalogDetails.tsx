@@ -1,12 +1,10 @@
-import { backgroundColor } from '@shopify/restyle';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card, FAB, List, Paragraph } from 'react-native-paper';
+
 import { Box, Header, Text } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
-import { BASE_URL } from '../../context/Authentication/AuthContext';
 
 const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
@@ -16,25 +14,7 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
   const { open } = state;
 
   //@ts-ignore
-  const { Id } = route.params;
-  const [name, setName] = useState('');
-  const [brand, setBrand] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-
-  const getProductById = async () => {
-    const { data } = await axios.get(`${BASE_URL}/product/details/${Id}`);
-
-    setName(data.name);
-    setBrand(data.brand);
-    setDescription(data.description);
-    setPrice(data.price);
-    // console.log(data);
-  }
-
-  useEffect(() => {
-    (async () => await getProductById())()
-  }, [getProductById])
+  const { outfit } = route.params;
 
   //@ts-ignore
   const onStateChange = ({ open }) => setState({ open });
@@ -45,16 +25,16 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
         tittle="Outfit Details"
         left={{ icon: 'arrow-left', onPress: () => navigation.navigate('Catalog') }}
       />
-      <Card style={{ height: '90%' }}>
-        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={{ height: '30%' }} />
+      <Card style={{ height: '95%' }}>
+        <Card.Cover source={{ uri: outfit.image }} style={{ height: '55%' }} />
         <Card.Title
-          title={brand}
-          subtitle={name}
+          title={outfit.brand}
+          subtitle={outfit.name}
           style={{ alignItems: 'center', justifyContent: 'center' }}
         />
         <Card.Content>
-          <Paragraph>{description}</Paragraph>
-          <Paragraph>{price} IDR</Paragraph>
+          <Paragraph>{outfit.description}</Paragraph>
+          <Paragraph>{outfit.price} IDR</Paragraph>
         </Card.Content>
         <Box marginVertical="s">
           <List.Accordion
@@ -66,22 +46,7 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
           >
             <TouchableOpacity>
               <Text variant="title3" style={{ marginBottom: 15, padding: 10 }}>
-                S | Quantity : 45
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text variant="title3" style={{ marginBottom: 15, padding: 10 }}>
-                M | Quantity : 45
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text variant="title3" style={{ marginBottom: 15, padding: 10 }}>
-                L | Quantity : 45
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text variant="title3" style={{ marginBottom: 15, padding: 10 }}>
-                XL | Quantity : 45
+                {outfit.sizes[0].name}
               </Text>
             </TouchableOpacity>
           </List.Accordion>

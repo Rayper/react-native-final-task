@@ -9,30 +9,35 @@ interface ProductContextProviderProps {
   children: ReactNode;
 }
 
+interface outfit {
+  productId: number;
+  name: string;
+  brand: string;
+  description: string;
+  price: string;
+  sizes: string[];
+  image: string;
+}
+
 export const ProductContextProvider = ({ children }: ProductContextProviderProps) => {
-  const [outfits, setOutfits] = useState([]);
+  const [outfits, setOutfits] = useState<outfit[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    (async () => await getAllProducts())();
+  }, []);
+
   const getAllProducts = async () => {
-    setIsLoading(true);
-    let productData;
     await axios
       .get(`${BASE_URL}/product/findAllProducts`)
       .then((response) => {
-        productData = response.data;
-        setOutfits(productData);
+        setOutfits(response.data);
         console.log(response.data);
-        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
-        setIsLoading(false);
       });
   };
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
 
   return (
     //@ts-ignore
