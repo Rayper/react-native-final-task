@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Theme, Box, useTheme } from '../../components/Theme';
 import { RectButton } from 'react-native-gesture-handler';
@@ -6,6 +6,7 @@ import { RoundedIcon, Text } from '../../components';
 import { HomeRoutes } from '../../components/Navigation';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { AuthContext } from '../../context/Authentication/AuthContext';
 
 interface ScreenDrawerItem extends BaseDrawerItem {
   screen: keyof HomeRoutes;
@@ -26,12 +27,19 @@ export interface BaseDrawerItem {
 const DrawerItem = ({ icon, label, color, ...props }: DrawerItemProps) => {
   const theme = useTheme();
   const navigation = useNavigation<DrawerNavigationProp<HomeRoutes, 'OutfitIdeas'>>();
+  const { signOut } = useContext(AuthContext);
+
+  //@ts-ignore
+  const onSubmitSignOut = (props) => {
+    signOut();
+    props.onPress(navigation);
+  };
 
   return (
     <RectButton
       onPress={() =>
-        // jika screen ada di props maka jalankan props screen, jika tidak ada maka jalankan props onPress
-        'screen' in props ? navigation.navigate(props.screen) : props.onPress(navigation)
+        // jika screen ada di props maka jalankan props screen, jika tidak ada maka jalankan props onSubmitSignOut
+        'screen' in props ? navigation.navigate(props.screen) : onSubmitSignOut(props)
       }
       style={{ borderRadius: theme.borderRadii.s }}
     >

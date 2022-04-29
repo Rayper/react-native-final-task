@@ -63,8 +63,9 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   };
 
   const userSignIn = async (data: LoginForm) => {
-    const { email, password } = data;
     setIsLoading(true);
+    
+    const { email, password } = data;
     let responseUser;
     await axios
       .post(`${BASE_URL}/auth/login`, { email, password })
@@ -84,16 +85,17 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   };
 
   const userUpdatePersonalInfo = async (data: PersonalInfoForm) => {
+    setIsLoading(true);
+
     const bearerToken = await AsyncStorage.getItem('token');
     console.log(bearerToken);
 
     let responseUser;
-    setIsLoading(true);
-    const { email, firstName, lastName } = data;
+    const { email, firstName, lastName, address } = data;
     await axios
       .patch(
         `${BASE_URL}/users/updatePersonalInfo`,
-        { email, firstName, lastName },
+        { email, firstName, lastName, address },
         { headers: { Authorization: `Bearer ${bearerToken}` } },
       )
       .then((response) => {
@@ -151,6 +153,16 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const signOut = async () => {
+    setUser(null);
+    try {
+      await AsyncStorage.removeItem('token');
+      console.log('token has been removed.');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -162,6 +174,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
         user,
         userUpdatePersonalInfo,
         userUpdatePassword,
+        signOut
       }}
     >
       {children}

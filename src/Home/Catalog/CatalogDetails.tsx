@@ -5,6 +5,7 @@ import { Card, FAB, List, Paragraph } from 'react-native-paper';
 
 import { Box, Header, Text } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
+import CheckBoxGroup from '../EditProfile/CheckBoxGroup';
 
 const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
@@ -44,7 +45,9 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
             expanded={sizesExpanded}
             onPress={() => setSizesExpanded(!sizesExpanded)}
           >
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => Alert.alert(`You are about to pick ${outfit.sizes[0].name} size`)}
+            >
               <Text variant="title3" style={{ marginBottom: 15, padding: 10 }}>
                 {outfit.sizes[0].name}
               </Text>

@@ -18,22 +18,21 @@ const genders = [
 
 const PersonalInfo = () => {
   const SignUpSchema = Yup.object().shape({
-    firstName: Yup.string().required('First name field is required'),
-    lastName: Yup.string().required('Last name field is required'),
-    email: Yup.string().email('Invalid email format').required('Email field is required'),
-    address: Yup.string().notRequired(),
+    firstName: Yup.string().optional(),
+    lastName: Yup.string().optional(),
+    email: Yup.string().email('Invalid email format').optional(),
+    address: Yup.string().optional(),
   });
 
   const { userUpdatePersonalInfo, isLoading, user } = useContext(AuthContext);
-  // const [address, setAddress] = useState('');
 
   const { handleSubmit, control, resetField, register } = useForm({
     mode: 'all',
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      address: '',
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      email: user?.email,
+      address: user?.address,
     },
     resolver: yupResolver(SignUpSchema),
   });
@@ -72,7 +71,7 @@ const PersonalInfo = () => {
                     onChangeText={onChange}
                     onBlur={onBlur}
                     icon="mail"
-                    placeholder="Enter your new Email Address"
+                    placeholder={user?.firstName}
                     error={error}
                     touched={isTouched}
                     autoCompleteType="email"
@@ -101,7 +100,7 @@ const PersonalInfo = () => {
                     onChangeText={onChange}
                     onBlur={onBlur}
                     icon="user"
-                    placeholder="enter your new First Name"
+                    placeholder={user?.lastName}
                     error={error}
                     touched={isTouched}
                     autoCompleteType="name"
@@ -130,7 +129,7 @@ const PersonalInfo = () => {
                     onChangeText={onChange}
                     onBlur={onBlur}
                     icon="user"
-                    placeholder="enter your new First Name"
+                    placeholder={user?.email}
                     error={error}
                     touched={isTouched}
                     autoCompleteType="name"
@@ -158,7 +157,7 @@ const PersonalInfo = () => {
                     onChangeText={onChange}
                     onBlur={onBlur}
                     icon="map-pin"
-                    placeholder="jalan kiajurum"
+                    placeholder={user?.address}
                     error={error}
                     touched={isTouched}
                     autoCompleteType="name"

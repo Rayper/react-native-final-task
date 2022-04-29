@@ -1,35 +1,16 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import React, { useContext } from 'react';
+import { FlatList, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { Box, Header } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
-import { BASE_URL } from '../../context/Product/ProductContext';
+import { ProductContext } from '../../context/Product/ProductContext';
 
 import OutfitCard from './OutfitCard';
 
-const Catalog = ({ navigation, route }: HomeNavigationProps<'Catalog'>) => {
-  // const { outfits } = useContext(ProductContext);
-  const [outfits, setOutfits] = useState<any[]>([]);
-
-  const getAllProducts = async () => {
-    let productData;
-    await axios
-      .get(`${BASE_URL}/product/findAllProducts`)
-      .then((response) => {
-        productData = response.data;
-        setOutfits(productData);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    (async () => await getAllProducts())();
-  }, []);
+const Catalog = ({ navigation }: HomeNavigationProps<'Catalog'>) => {
+  const { outfits } = useContext(ProductContext);
+  console.log('this is an outfit : ', outfits);
 
   return (
     <Box flex={1}>
@@ -39,6 +20,7 @@ const Catalog = ({ navigation, route }: HomeNavigationProps<'Catalog'>) => {
         right={{ icon: 'shopping-cart', onPress: () => navigation.navigate('Cart') }}
       />
       <FlatList
+        persistentScrollbar={true}
         data={outfits}
         numColumns={2}
         style={{
