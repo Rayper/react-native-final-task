@@ -37,13 +37,14 @@ interface AuthProviderProps {
 
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState(null);
+  const [updatedUser, setUpdatedUser] = useState(null);
   const [signInError, setSignInError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [signUpError, setSignUpError] = useState('');
 
   useEffect(() => {
     (async () => await userToken())();
-  }, []);
+  }, [updatedUser]);
 
   const userSignUp = async (data: SignUpForm) => {
     setIsLoading(true);
@@ -84,13 +85,14 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     return responseUser;
   };
 
+  // useEffect buat trigger updated User
   const userUpdatePersonalInfo = async (data: PersonalInfoForm) => {
     setIsLoading(true);
 
     const bearerToken = await AsyncStorage.getItem('token');
     console.log(bearerToken);
 
-    let responseUser;
+    let responseUser: any;
     const { email, firstName, lastName, address } = data;
     await axios
       .patch(
@@ -100,7 +102,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       )
       .then((response) => {
         responseUser = response.data;
-        setUser(responseUser);
+        setUpdatedUser(responseUser);
         setIsLoading(false);
         console.log(responseUser);
       })
@@ -174,7 +176,8 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
         user,
         userUpdatePersonalInfo,
         userUpdatePassword,
-        signOut
+        signOut,
+        updatedUser
       }}
     >
       {children}

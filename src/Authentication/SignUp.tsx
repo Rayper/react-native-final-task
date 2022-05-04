@@ -207,6 +207,7 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
               </Box>
             )}
           />
+          {/* clear setelah pindah screen */}
           {signUpError ? (
             <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>{signUpError}</Text>
           ) : null}
