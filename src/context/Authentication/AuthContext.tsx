@@ -65,7 +65,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
 
   const userSignIn = async (data: LoginForm) => {
     setIsLoading(true);
-    
+
     const { email, password } = data;
     let responseUser;
     await axios
@@ -108,6 +108,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       })
       .catch((error) => {
         console.log(error.response.data.message);
+        console.log(error.response.status);
         setIsLoading(false);
       });
     return responseUser;
@@ -132,6 +133,8 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       })
       .catch((error) => {
         console.log(error.response.data.message);
+        console.log(error.response.status);
+
         setIsLoading(false);
       });
     return responseUser;
@@ -151,6 +154,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
         })
         .catch((error) => {
           console.log(error);
+          console.log(error.response.status);
         });
     }
   };
@@ -163,7 +167,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <AuthContext.Provider
@@ -177,7 +181,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
         userUpdatePersonalInfo,
         userUpdatePassword,
         signOut,
-        updatedUser
+        updatedUser,
       }}
     >
       {children}

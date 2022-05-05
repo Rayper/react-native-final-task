@@ -9,9 +9,10 @@ import { Feather as Icon } from '@expo/vector-icons';
 interface RoundedCheckBoxGroupProps {
   options: { value: string; label: string }[];
   valueIsColor?: boolean;
+  radio?: boolean;
 }
 
-const RoundedCheckBoxGroup = ({ options, valueIsColor }: RoundedCheckBoxGroupProps) => {
+const RoundedCheckBoxGroup = ({ options, valueIsColor, radio }: RoundedCheckBoxGroupProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   return (
@@ -28,13 +29,17 @@ const RoundedCheckBoxGroup = ({ options, valueIsColor }: RoundedCheckBoxGroupPro
           <BorderlessButton
             key={value}
             onPress={() => {
-              if (isSelected) {
-                selectedValues.splice(index, 1);
+              if (radio) {
+                setSelectedValues([value]);
               } else {
-                //@ts-ignore
-                selectedValues.push(value);
+                if (isSelected) {
+                  selectedValues.splice(index, 1);
+                } else {
+                  //@ts-ignore
+                  selectedValues.push(value);
+                }
+                setSelectedValues([...selectedValues]);
               }
-              setSelectedValues([...selectedValues]);
             }}
           >
             <View

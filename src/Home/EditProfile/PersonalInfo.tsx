@@ -29,9 +29,9 @@ const PersonalInfo = () => {
   const { handleSubmit, control, resetField, register } = useForm({
     mode: 'all',
     defaultValues: {
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      email: user?.email,
+      firstName: '',
+      lastName: '',
+      email: '',
       address: user?.address,
     },
     resolver: yupResolver(SignUpSchema),
@@ -71,7 +71,7 @@ const PersonalInfo = () => {
                     onChangeText={onChange}
                     onBlur={onBlur}
                     icon="mail"
-                    placeholder={user?.firstName}
+                    placeholder="Enter your new Email Address"
                     error={error}
                     touched={isTouched}
                     autoCompleteType="email"
@@ -100,7 +100,7 @@ const PersonalInfo = () => {
                     onChangeText={onChange}
                     onBlur={onBlur}
                     icon="user"
-                    placeholder={user?.lastName}
+                    placeholder="Enter your new First Name"
                     error={error}
                     touched={isTouched}
                     autoCompleteType="name"
@@ -124,12 +124,12 @@ const PersonalInfo = () => {
               }) => (
                 <Box marginBottom="s">
                   <TextInput
-                    {...register('lastName')}
+                    {...register('email')}
                     value={value}
                     onChangeText={onChange}
                     onBlur={onBlur}
                     icon="user"
-                    placeholder={user?.email}
+                    placeholder="Enter your new Last Name"
                     error={error}
                     touched={isTouched}
                     autoCompleteType="name"

@@ -1,5 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 import { Box, Button, Text } from '../../components';
 import CheckBoxGroup from './CheckBoxGroup';
@@ -31,12 +32,30 @@ const colors = [
   { value: '#FE5E33' },
 ];
 
+const saveConfiguration = async () => {
+  try {
+    const jsonValue = JSON.stringify(outfitType);
+    AsyncStorage.setItem('@outfitType', jsonValue);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const seeResult = async () => {
+  let outfitTypeConfig = await AsyncStorage.getItem('@outfitType');
+  //@ts-ignore
+  let parsed = JSON.parse(outfitTypeConfig);
+  alert(parsed.value);
+};
+
 const Configuration = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Box padding="m">
         <Text variant="body">What type of Outfit you usually use?</Text>
-        <CheckBoxGroup options={outfitType} radio />
+        <TouchableOpacity onPress={() => saveConfiguration()}>
+          <CheckBoxGroup options={outfitType} radio />
+        </TouchableOpacity>
         <Text variant="body">What is your clothing size?</Text>
         <RoundedCheckBoxGroup
           //@ts-ignore
@@ -53,7 +72,7 @@ const Configuration = () => {
       </Box>
 
       <Box alignItems="center">
-        <Button variant="primary" onPress={() => alert('pressed')} label="Submit" />
+        <Button variant="primary" onPress={() => seeResult()} label="Submit" />
       </Box>
     </ScrollView>
   );

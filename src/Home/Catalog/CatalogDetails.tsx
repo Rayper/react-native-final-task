@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card, FAB, List, Paragraph } from 'react-native-paper';
 
-import { Box, Header, Text } from '../../components';
+import { Box, Header, RoundedIconButton, Text } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
+import CheckBoxGroup from '../EditProfile/CheckBoxGroup';
+import RoundedCheckBoxGroup from '../EditProfile/RoundedCheckBoxGroup';
 
 const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   const [state, setState] = React.useState({ open: false });
 
@@ -15,6 +18,22 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
 
   //@ts-ignore
   const { outfit } = route.params;
+
+  const availableSizes = outfit.sizes.map(({ name }: any) => {
+    return { value: name, label: name };
+  });
+
+  const plus = () => {
+    setQuantity((quantity) => quantity + 1);
+  };
+
+  const minus = () => {
+    if (quantity > 1) {
+      setQuantity((quantity) => quantity - 1);
+    } else {
+      setQuantity(1);
+    }
+  };
 
   //@ts-ignore
   const onStateChange = ({ open }) => setState({ open });
@@ -44,15 +63,39 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
             expanded={sizesExpanded}
             onPress={() => setSizesExpanded(!sizesExpanded)}
           >
-            <TouchableOpacity
-              onPress={() => Alert.alert(`You are about to pick ${outfit.sizes[0].name} size`)}
-            >
-              <Text variant="title3" style={{ marginBottom: 15, padding: 10 }}>
-                {outfit.sizes[0].name}
-              </Text>
-            </TouchableOpacity>
+            <RoundedCheckBoxGroup radio options={availableSizes} />
           </List.Accordion>
+          <Text style={{ textAlign: 'center' }} variant="body">
+            Quantity
+          </Text>
+          <Text style={{ textAlign: 'center', marginBottom: -20 }} variant="body">
+            {quantity}
+          </Text>
+          <Box flexDirection="row" marginLeft="xl" marginBottom="m">
+            <Box style={{ marginLeft: 110 }}>
+              <RoundedIconButton
+                onPress={() => plus()}
+                name="plus"
+                size={30}
+                color="white"
+                backgroundColor="primary"
+                iconRatio={0.5}
+              />
+            </Box>
+
+            <Box style={{ marginLeft: 50 }}>
+              <RoundedIconButton
+                onPress={() => minus()}
+                name="minus"
+                size={30}
+                color="white"
+                backgroundColor="danger"
+                iconRatio={0.5}
+              />
+            </Box>
+          </Box>
         </Box>
+
         <FAB.Group
           fabStyle={{ backgroundColor: '#2CB9B0', marginBottom: 40 }}
           color="white"

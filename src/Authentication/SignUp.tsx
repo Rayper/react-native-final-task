@@ -16,6 +16,7 @@ import * as Yup from 'yup';
 
 import { AuthContext } from '../context/Authentication/AuthContext';
 import LoadingScreen from '../components/LoadingScreen';
+import { CommonActions } from '@react-navigation/native';
 
 const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
   const password = useRef<RNTextInput>(null);
@@ -51,7 +52,11 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
   const onSubmit = async (data: any) => {
     const signUpSuccess = await userSignUp(data);
     if (signUpSuccess) {
-      navigation.navigate('Login');
+      navigation.dispatch(
+        CommonActions.reset({
+          routes: [{ name: 'Login' }],
+        }),
+      );
     }
   };
 
@@ -59,7 +64,13 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
     <Footer
       title="Already have an account?"
       action="Sign In here"
-      onPress={() => navigation.navigate('Login')}
+      onPress={() =>
+        navigation.dispatch(
+          CommonActions.reset({
+            routes: [{ name: 'Login' }],
+          }),
+        )
+      }
     />
   );
 
@@ -207,7 +218,7 @@ const SignUp = ({ navigation }: AuthNavigationProps<'SignUp'>) => {
               </Box>
             )}
           />
-          {/* clear setelah pindah screen */}
+
           {signUpError ? (
             <Text style={{ color: 'red', alignSelf: 'stretch', fontSize: 13 }}>{signUpError}</Text>
           ) : null}
