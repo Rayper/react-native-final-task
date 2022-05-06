@@ -5,9 +5,10 @@ import { Box, Button, useTheme } from '../../components';
 interface CheckBoxGroupProps {
   options: { value: string; label: string }[];
   radio?: boolean;
+  onPress?: (varRandom: string, uid: any) => void;
 }
 
-const CheckBoxGroup = ({ options, radio }: CheckBoxGroupProps) => {
+const CheckBoxGroup = ({ options, radio, onPress }: CheckBoxGroupProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   return (
@@ -23,6 +24,10 @@ const CheckBoxGroup = ({ options, radio }: CheckBoxGroupProps) => {
             key={value}
             variant={isSelected ? 'primary' : 'default'}
             onPress={() => {
+              if (onPress) {
+                //@ts-ignore
+                onPress(value.toLowerCase());
+              }
               // kalau radio true, cuman bisa select 1
               if (radio) {
                 setSelectedValues([value]);

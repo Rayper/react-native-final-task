@@ -10,9 +10,15 @@ interface RoundedCheckBoxGroupProps {
   options: { value: string; label: string }[];
   valueIsColor?: boolean;
   radio?: boolean;
+  onPress?: (varRandom: any) => void;
 }
 
-const RoundedCheckBoxGroup = ({ options, valueIsColor, radio }: RoundedCheckBoxGroupProps) => {
+const RoundedCheckBoxGroup = ({
+  options,
+  valueIsColor,
+  radio,
+  onPress,
+}: RoundedCheckBoxGroupProps) => {
   const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   return (
@@ -29,6 +35,9 @@ const RoundedCheckBoxGroup = ({ options, valueIsColor, radio }: RoundedCheckBoxG
           <BorderlessButton
             key={value}
             onPress={() => {
+              if (onPress) {
+                onPress(value);
+              }
               if (radio) {
                 setSelectedValues([value]);
               } else {
