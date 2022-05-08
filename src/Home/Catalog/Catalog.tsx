@@ -10,7 +10,6 @@ import OutfitCard from './OutfitCard';
 
 const Catalog = ({ navigation }: HomeNavigationProps<'Catalog'>) => {
   const { outfits } = useContext(ProductContext);
-  console.log('this is an outfit : ', outfits);
 
   return (
     <Box flex={1}>

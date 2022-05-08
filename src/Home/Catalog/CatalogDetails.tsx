@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card, FAB, List, Paragraph } from 'react-native-paper';
+import { boolean } from 'yup';
 
 import { Box, Header, RoundedIconButton, Text } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
+import { FavouritesOutfitContext } from '../../context/Favourites/FavouritesOutfit';
 import CheckBoxGroup from '../EditProfile/CheckBoxGroup';
 import RoundedCheckBoxGroup from '../EditProfile/RoundedCheckBoxGroup';
 
 const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const { favouritesOutfit, addFavouritesOutfit, removeFavouritesOutfit, error } =
+    useContext(FavouritesOutfitContext);
 
   const [state, setState] = React.useState({ open: false });
 
@@ -33,6 +37,23 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
     } else {
       setQuantity(1);
     }
+  };
+
+  // still undefined
+  const isFavourite = favouritesOutfit.find(
+    (fav: any) => fav.outfit.productId === outfit.productId,
+  );
+  console.log(isFavourite);
+
+  const addToFavourites = async () => {
+    await addFavouritesOutfit(outfit.productId);
+    {
+      error ? Alert.alert(error) : Alert.alert('Added to favourites');
+    }
+  };
+
+  const removeFromFavourites = async () => {
+    await removeFavouritesOutfit(isFavourite.id);
   };
 
   //@ts-ignore
@@ -95,32 +116,59 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
             </Box>
           </Box>
         </Box>
-
-        <FAB.Group
-          fabStyle={{ backgroundColor: '#2CB9B0', marginBottom: 40 }}
-          color="white"
-          open={open}
-          icon={open ? 'rocket' : 'plus'}
-          actions={[
-            {
-              icon: 'heart',
-              color: 'red',
-              labelStyle: { backgroundColor: 'white' },
-              label: 'Add to Favourites',
-              labelTextColor: 'red',
-              onPress: () => Alert.alert('Added to Favourites'),
-            },
-            {
-              icon: 'cart',
-              color: '#2CB9B0',
-              labelStyle: { backgroundColor: 'white' },
-              label: 'Add to Cart',
-              labelTextColor: '#2CB9B0',
-              onPress: () => Alert.alert('Added to Cart'),
-            },
-          ]}
-          onStateChange={onStateChange}
-        />
+        {isFavourite ? (
+          <FAB.Group
+            fabStyle={{ backgroundColor: '#2CB9B0', marginBottom: 40 }}
+            color="white"
+            open={open}
+            icon={open ? 'rocket' : 'plus'}
+            actions={[
+              {
+                icon: 'heart-remove',
+                color: 'red',
+                labelStyle: { backgroundColor: 'white' },
+                label: 'Remove from Favourites',
+                labelTextColor: 'red',
+                onPress: () => removeFromFavourites(),
+              },
+              {
+                icon: 'cart',
+                color: '#2CB9B0',
+                labelStyle: { backgroundColor: 'white' },
+                label: 'Add to Cart',
+                labelTextColor: '#2CB9B0',
+                onPress: () => Alert.alert('Added to Cart'),
+              },
+            ]}
+            onStateChange={onStateChange}
+          />
+        ) : (
+          <FAB.Group
+            fabStyle={{ backgroundColor: '#2CB9B0', marginBottom: 40 }}
+            color="white"
+            open={open}
+            icon={open ? 'rocket' : 'plus'}
+            actions={[
+              {
+                icon: 'heart',
+                color: 'red',
+                labelStyle: { backgroundColor: 'white' },
+                label: 'Add from favourites',
+                labelTextColor: 'red',
+                onPress: () => addToFavourites(),
+              },
+              {
+                icon: 'cart',
+                color: '#2CB9B0',
+                labelStyle: { backgroundColor: 'white' },
+                label: 'Add to Cart',
+                labelTextColor: '#2CB9B0',
+                onPress: () => Alert.alert('Added to Cart'),
+              },
+            ]}
+            onStateChange={onStateChange}
+          />
+        )}
       </Card>
     </Box>
   );

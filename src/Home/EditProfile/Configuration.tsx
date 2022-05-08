@@ -121,9 +121,12 @@ const Configuration = () => {
 
       <Box alignItems="center" marginBottom="m">
         <Box alignItems="center" marginBottom="m">
-          <Button variant="primary" 
-          //@ts-ignore
-          onPress={() => getAllConfiguration()} label="Submit" />
+          <Button
+            variant="primary"
+            //@ts-ignore
+            onPress={() => getAllConfiguration()}
+            label="Submit"
+          />
         </Box>
       </Box>
     </ScrollView>

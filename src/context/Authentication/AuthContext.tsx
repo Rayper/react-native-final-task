@@ -73,6 +73,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       .then(async (response) => {
         responseUser = response.data.user;
         setUser(responseUser);
+        console.log(responseUser);
         await AsyncStorage.setItem('token', response.data.token);
         setIsLoading(false);
         setSignInError('');

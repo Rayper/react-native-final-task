@@ -12,6 +12,7 @@ import { AppRoutes } from './src/components/Navigation';
 import axios from 'axios';
 import { AuthContextProvider } from './src/context/Authentication/AuthContext';
 import { ProductContextProvider } from './src/context/Product/ProductContext';
+import { FavouritesOutfitContextProvider } from './src/context/Favourites/FavouritesOutfit';
 
 axios.defaults.baseURL = 'http://192.168.1.13:8000/api/';
 
@@ -33,12 +34,14 @@ export default function App() {
         <LoadAssets {...{ fonts, assets }}>
           <AuthContextProvider>
             <ProductContextProvider>
-              <SafeAreaProvider>
-                <AppStack.Navigator screenOptions={{headerShown: false}}>
-                  <AppStack.Screen name="Authentication" component={AuthenticationNavigator} />
-                  <AppStack.Screen name="Home" component={HomeNavigator} />
+              <FavouritesOutfitContextProvider>
+                <SafeAreaProvider>
+                  <AppStack.Navigator screenOptions={{headerShown: false}}>
+                    <AppStack.Screen name="Authentication" component={AuthenticationNavigator} />
+                    <AppStack.Screen name="Home" component={HomeNavigator} />
                 </AppStack.Navigator>
-              </SafeAreaProvider>
+                </SafeAreaProvider>
+              </FavouritesOutfitContextProvider>
             </ProductContextProvider>
           </AuthContextProvider>  
         </LoadAssets>
