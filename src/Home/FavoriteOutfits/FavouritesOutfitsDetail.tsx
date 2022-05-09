@@ -15,7 +15,7 @@ const FavouritesOutfitDetails = ({
 }: HomeNavigationProps<'FavouritesOutfitDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
 
-  const [outfitSize, setOutfitSize] = useState();
+  const [outfitSize, setOutfitSize] = useState('');
 
   const [quantity, setQuantity] = useState(1);
 
@@ -75,9 +75,13 @@ const FavouritesOutfitDetails = ({
   };
 
   const submitCart = async () => {
-    await addUserCart(addToCart);
-    {
-      errorCart ? Alert.alert('error while adding to cart') : Alert.alert('Added to Cart');
+    if (addToCart.size === '') {
+      Alert.alert('Choose your size 1st!');
+    } else {
+      await addUserCart(addToCart);
+      {
+        errorCart ? Alert.alert('error while adding to cart') : Alert.alert('Added to Cart');
+      }
     }
   };
 
@@ -129,7 +133,14 @@ const FavouritesOutfitDetails = ({
             expanded={sizesExpanded}
             onPress={() => setSizesExpanded(!sizesExpanded)}
           >
-            <RoundedCheckBoxGroup radio options={availableSizes} />
+            <RoundedCheckBoxGroup
+              radio
+              options={availableSizes}
+              onPress={(size: string) => {
+                console.log('selected size : ', size);
+                setOutfitSize(size);
+              }}
+            />
             <Text style={{ textAlign: 'center', fontWeight: 'bold' }} variant="body">
               Quantity
             </Text>
@@ -184,7 +195,7 @@ const FavouritesOutfitDetails = ({
               labelStyle: { backgroundColor: 'white' },
               label: 'Add to Cart',
               labelTextColor: '#2CB9B0',
-              onPress: () => Alert.alert('Added to Cart'),
+              onPress: () => submitCart(),
             },
           ]}
           onStateChange={onStateChange}

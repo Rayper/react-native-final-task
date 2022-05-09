@@ -32,7 +32,7 @@ const Item = ({ onDelete, cartItem }: ItemProps) => {
             {cartItem.name}
           </Text>
           <Text variant="title3" color="primary">
-            {cartItem.price} IDR
+          {(cartItem.quantity * cartItem.price)} IDR
           </Text>
         </Box>
         <Box justifyContent="center">

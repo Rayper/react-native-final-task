@@ -33,7 +33,7 @@ const FavoriteOutfits = ({ navigation }: HomeNavigationProps<'FavoriteOutfits'>)
       <Header
         tittle="Favorite Outfits"
         left={{ icon: 'menu', onPress: () => navigation.openDrawer() }}
-        right={{ icon: 'shopping-bag', onPress: () => true }}
+        right={{ icon: 'shopping-bag', onPress: () => navigation.navigate('Cart') }}
       />
       <Box flex={1}>
         {favouritesOutfit.length > 0 ? (
