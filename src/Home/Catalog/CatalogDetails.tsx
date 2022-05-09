@@ -12,6 +12,8 @@ import RoundedCheckBoxGroup from '../EditProfile/RoundedCheckBoxGroup';
 const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
 
+  const [outfitSize, setOutfitSize] = useState(''); 
+
   const [quantity, setQuantity] = useState(1);
 
   const { favouritesOutfit, addFavouritesOutfit, removeFavouritesOutfit, error } =
@@ -25,17 +27,17 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
 
   //@ts-ignore
   const { outfit } = route.params;
-  console.log('outfit name : ', outfit.name);
-  console.log('outfit sizes : ', outfit.sizes[0].name);
-  console.log('outfit image : ', outfit.image);
-  console.log('outfit productId : ', outfit.productId);
-  console.log('outfit quantity : ', quantity);
-  console.log('outfit price : ', outfit.price);
+  // console.log('outfit name : ', outfit.name);
+  // console.log('outfit sizes : ', outfit.sizes[0].name);
+  // console.log('outfit image : ', outfit.image);
+  // console.log('outfit productId : ', outfit.productId);
+  // console.log('outfit quantity : ', quantity);
+  // console.log('outfit price : ', outfit.price);
 
   let addToCart = {
     productId: outfit.productId,
     name: outfit.name,
-    size: outfit.sizes[0].name,
+    size: outfitSize,
     quantity: quantity,
     price: outfit.price,
     image: outfit.image,
@@ -146,7 +148,7 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
               options={availableSizes}
               onPress={(size: string) => {
                 console.log('selected size : ', size);
-                addToCart.size = size;
+                setOutfitSize(size);
               }}
             />
             <Text style={{ textAlign: 'center', fontWeight: 'bold' }} variant="body">

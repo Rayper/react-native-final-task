@@ -12,11 +12,11 @@ interface CartContextProviderProps {
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const [cart, setCart] = useState([]);
   const [errorCart, setErrorCart] = useState('');
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
 
   useEffect(() => {
     async () => await getUserCart();
-  }, [user]);
+  }, []);
 
   const getUserCart = async () => {
     const bearerToken = await AsyncStorage.getItem('token');
