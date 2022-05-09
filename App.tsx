@@ -23,6 +23,10 @@ const fonts = {
   "SF-Pro-Display-Semibold": require("./assets/fonts/SF-Pro-Display-Semibold.otf"),
   "SF-Pro-Display-Regular": require("./assets/fonts/SF-Pro-Display-Regular.otf"),
   "SF-Pro-Display-Medium": require("./assets/fonts/SF-Pro-Display-Medium.otf"),
+  "LemonMilk-Bold": require("./assets/fonts/LemonMilk-Bold.otf"),
+  "LEMONMILK-BoldItalic": require("./assets/fonts/LEMONMILK-BoldItalic.otf"),
+  "LEMONMILK-Regular": require("./assets/fonts/LEMONMILK-Regular.otf"),
+  
 };
 
 const AppStack = createStackNavigator<AppRoutes>();

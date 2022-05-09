@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../Authentication/AuthContext';
 import { BASE_URL } from '../Product/ProductContext';
 
 export const FavouritesOutfitContext = createContext<any>({});
@@ -14,10 +15,11 @@ export const FavouritesOutfitContextProvider = ({
 }: FavouritesOutfitContextProviderProps) => {
   const [favouritesOutfit, setFavouritesOutfit] = useState([]);
   const [error, setError] = useState('');
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     (async () => await getFavouritesOutfit())();
-  }, []);
+  }, [user]);
 
   const getFavouritesOutfit = async () => {
     const bearerToken = await AsyncStorage.getItem('token');

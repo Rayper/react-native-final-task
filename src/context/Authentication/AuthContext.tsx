@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { createContext, ReactNode, useEffect, useState } from 'react';
 
@@ -36,6 +37,7 @@ interface AuthProviderProps {
 }
 
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
+  const navigation = useNavigation();
   const [user, setUser] = useState(null);
   const [updatedUser, setUpdatedUser] = useState(null);
   const [signInError, setSignInError] = useState('');
@@ -134,8 +136,14 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
       })
       .catch((error) => {
         console.log(error.response.data.message);
-        console.log(error.response.status);
-
+        if (error.response.status === 401) {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: 'Authentication' }],
+            }),
+          );
+        }
         setIsLoading(false);
       });
     return responseUser;
@@ -153,7 +161,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
         .then((response) => {
           setUser(response.data);
         })
-        .catch((error) => {
+        .catch(async (error) => {
           console.log(error);
           console.log(error.response.status);
         });

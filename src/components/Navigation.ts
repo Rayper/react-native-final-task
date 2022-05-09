@@ -29,6 +29,7 @@ export type HomeRoutes = {
   Cart: any;
   UpdatePasswordSuccess: any;
   Catalog: any;
+  FavouritesOutfitDetails: any;
   CatalogDetails: any;
 };
 

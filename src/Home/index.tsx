@@ -13,6 +13,7 @@ import Cart from './Cart';
 import UpdatePasswordSuccess from './EditProfile/UpdatePasswordSuccess';
 import Catalog from './Catalog';
 import CatalogDetails from './Catalog/CatalogDetails';
+import FavouritesOutfitDetails from './FavoriteOutfits/FavouritesOutfitsDetail';
 
 export { assets } from './Drawer';
 
@@ -37,6 +38,7 @@ export const HomeNavigator = () => {
       <Drawer.Screen name="Cart" component={Cart} />
       <Drawer.Screen name="Catalog" component={Catalog} />
       <Drawer.Screen name="CatalogDetails" component={CatalogDetails} />
+      <Drawer.Screen name="FavouritesOutfitDetails" component={FavouritesOutfitDetails} />
       <Drawer.Screen name="UpdatePasswordSuccess" component={UpdatePasswordSuccess} />
     </Drawer.Navigator>
   );

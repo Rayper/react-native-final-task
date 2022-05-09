@@ -137,9 +137,15 @@ export const theme = createTheme({
       color: 'text',
     },
     Header: {
-      fontSize: 12,
+      fontSize: 14,
       lineHeight: 24,
-      fontFamily: 'SF-Pro-Display-Semibold',
+      fontFamily: 'LemonMilk-Bold',
+      color: 'secondary',
+    },
+    outfitBrand: {
+      fontSize: 18,
+      lineHeight: 30,
+      fontFamily: 'LemonMilk-Bold',
       color: 'secondary',
     },
   },

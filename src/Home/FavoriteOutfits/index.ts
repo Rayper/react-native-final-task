@@ -1,1 +1,1 @@
-export { default } from './FavoritesOutfits';
+export { default } from './FavouritesOutfits';

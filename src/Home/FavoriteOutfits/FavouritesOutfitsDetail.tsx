@@ -8,11 +8,13 @@ import { HomeNavigationProps } from '../../components/Navigation';
 import { FavouritesOutfitContext } from '../../context/Favourites/FavouritesOutfit';
 import RoundedCheckBoxGroup from '../EditProfile/RoundedCheckBoxGroup';
 
-const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetails'>) => {
+const FavouritesOutfitDetails = ({
+  navigation,
+  route,
+}: HomeNavigationProps<'FavouritesOutfitDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const { favouritesOutfit, addFavouritesOutfit, removeFavouritesOutfit, error } =
-    useContext(FavouritesOutfitContext);
+  const { favouritesOutfit, removeFavouritesOutfit, error } = useContext(FavouritesOutfitContext);
 
   const [state, setState] = React.useState({ open: false });
 
@@ -20,6 +22,7 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
 
   //@ts-ignore
   const { outfit } = route.params;
+  console.log('outfit : ', outfit.sizes);
 
   const availableSizes = outfit.sizes.map(({ name }: any) => {
     console.log(name);
@@ -48,13 +51,6 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
     console.log('isFavourite : ', isFavourite);
   }
 
-  const addToFavourites = async () => {
-    await addFavouritesOutfit(outfit.productId);
-    {
-      error ? Alert.alert(error) : Alert.alert('Added to favourites');
-    }
-  };
-
   const removeFromFavourites = async () => {
     await removeFavouritesOutfit(isFavourite.id);
     {
@@ -69,7 +65,7 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
     <Box flex={1}>
       <Header
         tittle="Outfit Details"
-        left={{ icon: 'arrow-left', onPress: () => navigation.navigate('Catalog') }}
+        left={{ icon: 'arrow-left', onPress: () => navigation.navigate('FavoriteOutfits') }}
       />
       <Card style={{ height: '95%' }}>
         <Card.Cover source={{ uri: outfit.image }} style={{ height: '55%' }} />
@@ -145,62 +141,34 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
             </Box>
           </List.Accordion>
         </Box>
-        {!isFavourite ? (
-          <FAB.Group
-            fabStyle={{ backgroundColor: '#2CB9B0', marginBottom: 40 }}
-            color="white"
-            open={open}
-            icon={open ? 'rocket' : 'plus'}
-            actions={[
-              {
-                icon: 'heart',
-                color: 'red',
-                labelStyle: { backgroundColor: 'white' },
-                label: 'Add to Favourites',
-                labelTextColor: 'red',
-                onPress: () => addToFavourites(),
-              },
-              {
-                icon: 'cart',
-                color: '#2CB9B0',
-                labelStyle: { backgroundColor: 'white' },
-                label: 'Add to Cart',
-                labelTextColor: '#2CB9B0',
-                onPress: () => Alert.alert('Added to Cart'),
-              },
-            ]}
-            onStateChange={onStateChange}
-          />
-        ) : (
-          <FAB.Group
-            fabStyle={{ backgroundColor: '#2CB9B0', marginBottom: 40 }}
-            color="white"
-            open={open}
-            icon={open ? 'rocket' : 'plus'}
-            actions={[
-              {
-                icon: 'heart-remove',
-                color: 'red',
-                labelStyle: { backgroundColor: 'white' },
-                label: 'Remove from favourites',
-                labelTextColor: 'red',
-                onPress: () => removeFromFavourites(),
-              },
-              {
-                icon: 'cart',
-                color: '#2CB9B0',
-                labelStyle: { backgroundColor: 'white' },
-                label: 'Add to Cart',
-                labelTextColor: '#2CB9B0',
-                onPress: () => Alert.alert('Added to Cart'),
-              },
-            ]}
-            onStateChange={onStateChange}
-          />
-        )}
+        <FAB.Group
+          fabStyle={{ backgroundColor: '#2CB9B0', marginBottom: 40 }}
+          color="white"
+          open={open}
+          icon={open ? 'rocket' : 'plus'}
+          actions={[
+            {
+              icon: 'heart-remove',
+              color: 'red',
+              labelStyle: { backgroundColor: 'white' },
+              label: 'Remove from favourites',
+              labelTextColor: 'red',
+              onPress: () => removeFromFavourites(),
+            },
+            {
+              icon: 'cart',
+              color: '#2CB9B0',
+              labelStyle: { backgroundColor: 'white' },
+              label: 'Add to Cart',
+              labelTextColor: '#2CB9B0',
+              onPress: () => Alert.alert('Added to Cart'),
+            },
+          ]}
+          onStateChange={onStateChange}
+        />
       </Card>
     </Box>
   );
 };
 
-export default CatalogDetails;
+export default FavouritesOutfitDetails;
