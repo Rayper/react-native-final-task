@@ -1,4 +1,5 @@
 import React from 'react';
+import { Image } from 'react-native';
 
 import { Box, Text, useTheme } from '../../components';
 
@@ -16,7 +17,16 @@ const Item = ({ onDelete, cartItem }: ItemProps) => {
   return (
     <SwipeableRow onDelete={onDelete} height={height}>
       <Box padding="m" flexDirection="row">
-        <Box width={120} height={120} borderRadius="m" style={{ backgroundColor: '#BFEAF5' }} />
+        <Image
+          style={{
+            justifyContent: 'center',
+            width: 120,
+            height: 120,
+          }}
+          source={{
+            uri: `${cartItem.image}`,
+          }}
+        />
         <Box padding="m" flex={1} justifyContent="center">
           <Text variant="Header">Size : {cartItem.size}</Text>
           <Text variant="title3" marginBottom="s">

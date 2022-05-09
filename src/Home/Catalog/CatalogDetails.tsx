@@ -1,5 +1,5 @@
 import { AntDesign } from '@expo/vector-icons';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Alert } from 'react-native';
 import { Card, FAB, List, Paragraph } from 'react-native-paper';
 
@@ -12,7 +12,7 @@ import RoundedCheckBoxGroup from '../EditProfile/RoundedCheckBoxGroup';
 const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
 
-  const [outfitSize, setOutfitSize] = useState(''); 
+  const [outfitSize, setOutfitSize] = useState();
 
   const [quantity, setQuantity] = useState(1);
 
