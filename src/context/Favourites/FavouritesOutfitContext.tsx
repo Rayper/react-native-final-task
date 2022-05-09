@@ -56,7 +56,7 @@ export const FavouritesOutfitContextProvider = ({
         })
         .catch((error) => {
           console.log('error while adding to favourites : ', error);
-          setError(error);
+          setError(error.response.data.message);
         });
     }
   };
@@ -75,7 +75,7 @@ export const FavouritesOutfitContextProvider = ({
         })
         .catch((error) => {
           console.log('error while removing from favourites : ', error);
-          setError(error);
+          setError(error.response.data.message);
         });
     }
   };

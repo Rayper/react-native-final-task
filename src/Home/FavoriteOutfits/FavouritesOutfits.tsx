@@ -5,7 +5,7 @@ import { Transitioning, Transition, TransitioningView } from 'react-native-reani
 import { Header } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
 import { Box, useTheme, Text } from '../../components/Theme';
-import { FavouritesOutfitContext } from '../../context/Favourites/FavouritesOutfit';
+import { FavouritesOutfitContext } from '../../context/Favourites/FavouritesOutfitContext';
 import OutfitCard from '../Catalog/OutfitCard';
 
 const FavoriteOutfits = ({ navigation }: HomeNavigationProps<'FavoriteOutfits'>) => {

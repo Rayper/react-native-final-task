@@ -5,7 +5,7 @@ import { Card, FAB, List, Paragraph } from 'react-native-paper';
 
 import { Box, Header, RoundedIconButton, Text } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
-import { FavouritesOutfitContext } from '../../context/Favourites/FavouritesOutfit';
+import { FavouritesOutfitContext } from '../../context/Favourites/FavouritesOutfitContext';
 import RoundedCheckBoxGroup from '../EditProfile/RoundedCheckBoxGroup';
 
 const FavouritesOutfitDetails = ({
