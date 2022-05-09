@@ -19,7 +19,6 @@ const Item = ({ onDelete, cartItem }: ItemProps) => {
       <Box padding="m" flexDirection="row">
         <Image
           style={{
-            justifyContent: 'center',
             width: 120,
             height: 120,
           }}

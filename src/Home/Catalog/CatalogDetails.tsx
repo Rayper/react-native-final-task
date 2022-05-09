@@ -12,7 +12,7 @@ import RoundedCheckBoxGroup from '../EditProfile/RoundedCheckBoxGroup';
 const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
 
-  const [outfitSize, setOutfitSize] = useState();
+  const [outfitSize, setOutfitSize] = useState('');
 
   const [quantity, setQuantity] = useState(1);
 
@@ -42,10 +42,6 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
     price: outfit.price,
     image: outfit.image,
   };
-
-  if (addToCart.size === '') {
-    Alert.alert('Choose you size 1st!');
-  }
 
   const availableSizes = outfit.sizes.map(({ name }: any) => {
     // console.log('size : ', name);
@@ -89,9 +85,13 @@ const CatalogDetails = ({ navigation, route }: HomeNavigationProps<'CatalogDetai
   };
 
   const submitCart = async () => {
-    await addUserCart(addToCart);
-    {
-      errorCart ? Alert.alert('error while adding to cart') : Alert.alert('Added to Cart');
+    if (addToCart.size === '') {
+      Alert.alert('Choose your size 1st!');
+    } else {
+      await addUserCart(addToCart);
+      {
+        errorCart ? Alert.alert('error while adding to cart') : Alert.alert('Added to Cart');
+      }
     }
   };
 

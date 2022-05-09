@@ -5,6 +5,7 @@ import { Card, FAB, List, Paragraph } from 'react-native-paper';
 
 import { Box, Header, RoundedIconButton, Text } from '../../components';
 import { HomeNavigationProps } from '../../components/Navigation';
+import { CartContext } from '../../context/Cart/CartContext';
 import { FavouritesOutfitContext } from '../../context/Favourites/FavouritesOutfitContext';
 import RoundedCheckBoxGroup from '../EditProfile/RoundedCheckBoxGroup';
 
@@ -13,8 +14,14 @@ const FavouritesOutfitDetails = ({
   route,
 }: HomeNavigationProps<'FavouritesOutfitDetails'>) => {
   const [sizesExpanded, setSizesExpanded] = useState(false);
+
+  const [outfitSize, setOutfitSize] = useState();
+
   const [quantity, setQuantity] = useState(1);
+
   const { favouritesOutfit, removeFavouritesOutfit, error } = useContext(FavouritesOutfitContext);
+
+  const { addUserCart, errorCart } = useContext(CartContext);
 
   const [state, setState] = React.useState({ open: false });
 
@@ -23,6 +30,15 @@ const FavouritesOutfitDetails = ({
   //@ts-ignore
   const { outfit } = route.params;
   console.log('outfit : ', outfit.sizes);
+
+  let addToCart = {
+    productId: outfit.productId,
+    name: outfit.name,
+    size: outfitSize,
+    quantity: quantity,
+    price: outfit.price,
+    image: outfit.image,
+  };
 
   const availableSizes = outfit.sizes.map(({ name }: any) => {
     console.log(name);
@@ -55,6 +71,13 @@ const FavouritesOutfitDetails = ({
     await removeFavouritesOutfit(isFavourite.id);
     {
       error ? Alert.alert(error) : Alert.alert('Removed from favourites');
+    }
+  };
+
+  const submitCart = async () => {
+    await addUserCart(addToCart);
+    {
+      errorCart ? Alert.alert('error while adding to cart') : Alert.alert('Added to Cart');
     }
   };
 

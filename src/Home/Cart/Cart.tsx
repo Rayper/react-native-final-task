@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Svg, { Path } from 'react-native-svg';
@@ -21,6 +21,8 @@ const Cart = ({ navigation }: HomeNavigationProps<'Cart'>) => {
   const theme = useTheme();
   const { cart } = useContext(CartContext);
   console.log('cart : ', cart);
+
+  useEffect(() => {}, cart);
 
   return (
     <CartContainer CheckoutComponent={Checkout}>
